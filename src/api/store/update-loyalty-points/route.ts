@@ -15,7 +15,7 @@ export const POST = async (req: MedusaRequest, res: MedusaResponse) => {
 
     // Update customer's LoyaltyPoints
     const updatedLoyaltyPoints = Math.max(customer.loyaltyPoints - pointsToDeduct, 0); // Ensure it doesn't go below 0
-    await customerService.update(customerId, { loyaltyPoints: updatedLoyaltyPoints });
+    //await customerService.update(customerId, { loyaltyPoints: updatedLoyaltyPoints });
 
     res.status(200).json({ message: 'Customer updated successfully' });
   } catch (error) {
