@@ -16,7 +16,7 @@ export const POST = async (req: MedusaRequest, res: MedusaResponse) => {
     if(operation == "add"){
     // Update customer's LoyaltyPoints
     const updatedLoyaltyPoints = customer.pendingFunds + pointsToDeduct; // Ensure it doesn't go below 0
-   // await customerService.update(customerId, { pendingFunds: updatedLoyaltyPoints });
+    //await customerService.update(customerId, { pendingFunds: updatedLoyaltyPoints });
     } else if (operation == "subtract") {
       const updatedLoyaltyPoints = Math.max(customer.pendingFunds - pointsToDeduct, 0); // Ensure it doesn't go below 0
       //await customerService.update(customerId, { pendingFunds: updatedLoyaltyPoints });
