@@ -47,6 +47,7 @@
     "medusa-payment-stripe": "^6.0.5",
     "mini-css-extract-plugin": "^2.7.6",
     "prism-react-renderer": "^2.0.4",
+    "readable-stream": "^4.5.2",
     "schema-utils": "^4.2.0",
     "typeorm": "^0.3.16"
   },
