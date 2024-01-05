@@ -26,6 +26,7 @@
     "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js"
   },
   "dependencies": {
+    "@emotion/memoize": "^0.8.1",
     "@medusajs/admin": "7.1.8",
     "@medusajs/cache-inmemory": "^1.8.9",
     "@medusajs/cache-redis": "^1.8.9",
@@ -50,6 +51,8 @@
     "prism-react-renderer": "^2.0.4",
     "readable-stream": "^4.5.2",
     "schema-utils": "^4.2.0",
+    "semver": "^7.5.4",
+    "source-map": "^0.7.4",
     "typeorm": "^0.3.16"
   },
   "devDependencies": {
