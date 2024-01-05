@@ -82,7 +82,46 @@ const projectConfig = {
 
 /** @type {import('@medusajs/medusa').ConfigModule} */
 module.exports = {
-  projectConfig,
+  projectConfig: {
+    cookie_secret: process.env.COOKIE_SECRET,
+    http_compression: {
+      enabled: true,
+      level: 6,
+      memLevel: 8,
+      threshold: 1024,
+    },
+    jwt_secret: process.env.JWT_SECRET,
+    database_extra: 
+    process.env.NODE_ENV !== "development"
+      ? { ssl: { rejectUnauthorized: false } }
+      : {},
+      database_logging: [
+        "query", "error",
+      ],
+      database_type: "postgres",
+      database_url: process.env.DATABASE_URL,
+      redis_url: process.env.REDIS_URL,
+      redis_prefix: "medusa:",
+      redis_options: {
+        connectionName: "medusa",
+      },
+      modules: {
+        eventBus: {
+          resolve: "@medusajs/event-bus-local",
+        },
+        cacheService: {
+          resolve: "@medusajs/cache-redis",
+          options: { 
+            redisUrl: process.env.CACHE_REDIS_URL,
+            ttl: 30,
+          },
+        }},
+
+  },
   plugins,
   modules,
+  featureFlags: {
+    product_categories: true,
+    // ...
+  },
 };
