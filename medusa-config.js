@@ -1,4 +1,4 @@
-const dotenv = require("dotenv");
+import { config } from "dotenv";
 
 let ENV_FILE_NAME = "";
 switch (process.env.NODE_ENV) {
@@ -18,7 +18,7 @@ switch (process.env.NODE_ENV) {
 }
 
 try {
-  dotenv.config({ path: process.cwd() + "/" + ENV_FILE_NAME });
+  config({ path: process.cwd() + "/" + ENV_FILE_NAME });
 } catch (e) {}
 
 // CORS when consuming Medusa from admin
@@ -35,14 +35,12 @@ const REDIS_URL = process.env.REDIS_URL || "redis://localhost:6379";
 const plugins = [
   `medusa-fulfillment-manual`,
   `medusa-payment-manual`,
-  {
+    {
     resolve: "@medusajs/admin",
     /** @type {import('@medusajs/admin').PluginOptions} */
     options: {
       autoRebuild: true,
-      develop: {
-        open: process.env.OPEN_BROWSER !== "false",
-      },
+
     },
   },
   {
@@ -82,7 +80,7 @@ const projectConfig = {
 };
 
 /** @type {import('@medusajs/medusa').ConfigModule} */
-module.exports = {
+export default {
   projectConfig,
   plugins,
   modules,
