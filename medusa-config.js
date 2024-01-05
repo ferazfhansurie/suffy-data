@@ -77,14 +77,7 @@ const projectConfig = {
   database_url: DATABASE_URL,
   admin_cors: ADMIN_CORS,
   // Uncomment the following lines to enable REDIS
- redis_url: REDIS_URL,
- database_extra: process.env.NODE_ENV !== "development" ?
- {
-   ssl: {
-     rejectUnauthorized: false,
-   },
- } : {},
-
+ redis_url: REDIS_URL
 };
 
 /** @type {import('@medusajs/medusa').ConfigModule} */
