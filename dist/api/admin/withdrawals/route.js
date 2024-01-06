@@ -1,40 +1,83 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 exports.POST = exports.GET = void 0;
+var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
+var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/asyncToGenerator"));
 // list withdrawals
-const GET = async (req, res) => {
-    try {
-        // Resolve the WithdrawalService from the request's scope
-        const withdrawalService = req.scope.resolve("withdrawalService");
-        // Optionally, you can pass selectors and configuration, e.g., for pagination
-        const selector = {}; // Define your selector here, if needed
-        const config = {
+var GET = exports.GET = /*#__PURE__*/function () {
+  var _ref = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee(req, res) {
+    var withdrawalService, selector, config, withdrawals;
+    return _regenerator["default"].wrap(function _callee$(_context) {
+      while (1) switch (_context.prev = _context.next) {
+        case 0:
+          _context.prev = 0;
+          // Resolve the WithdrawalService from the request's scope
+          withdrawalService = req.scope.resolve("withdrawalService"); // Optionally, you can pass selectors and configuration, e.g., for pagination
+          selector = {}; // Define your selector here, if needed
+          config = {
             skip: 0,
             take: 20,
+            // You can adjust pagination settings here
             relations: ["customer"] // Include any relations if needed
-        };
-        // Retrieve all withdrawals
-        const withdrawals = await withdrawalService.list(selector, config);
-        // Respond with the retrieved withdrawals
-        res.status(200).json(withdrawals);
-    }
-    catch (error) {
-        // Handle any errors
-        res.status(500).json({ error: error.message });
-    }
-};
-exports.GET = GET;
+          }; // Retrieve all withdrawals
+          _context.next = 6;
+          return withdrawalService.list(selector, config);
+        case 6:
+          withdrawals = _context.sent;
+          // Respond with the retrieved withdrawals
+          res.status(200).json(withdrawals);
+          _context.next = 13;
+          break;
+        case 10:
+          _context.prev = 10;
+          _context.t0 = _context["catch"](0);
+          // Handle any errors
+          res.status(500).json({
+            error: _context.t0.message
+          });
+        case 13:
+        case "end":
+          return _context.stop();
+      }
+    }, _callee, null, [[0, 10]]);
+  }));
+  return function GET(_x, _x2) {
+    return _ref.apply(this, arguments);
+  };
+}();
+
 // create a withdrawal
-const POST = async (req, res) => {
-    const withdrawalService = req.scope.resolve("withdrawalService");
-    // basic validation of request body
-    if (!req.body.total || !req.body.customer_id) {
-        throw new Error("`total` and `customer_id` are required.");
-    }
-    const post = await withdrawalService.create(req.body);
-    res.json({
-        post,
-    });
-};
-exports.POST = POST;
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicm91dGUuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi8uLi8uLi9zcmMvYXBpL2FkbWluL3dpdGhkcmF3YWxzL3JvdXRlLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7OztBQU1BLG1CQUFtQjtBQUNaLE1BQU0sR0FBRyxHQUFHLEtBQUssRUFBRSxHQUFrQixFQUFFLEdBQW1CLEVBQUUsRUFBRTtJQUNuRSxJQUFJO1FBQ0YseURBQXlEO1FBQ3pELE1BQU0saUJBQWlCLEdBQXNCLEdBQUcsQ0FBQyxLQUFLLENBQUMsT0FBTyxDQUFDLG1CQUFtQixDQUFDLENBQUM7UUFFcEYsNkVBQTZFO1FBQzdFLE1BQU0sUUFBUSxHQUFHLEVBQUUsQ0FBQyxDQUFDLHVDQUF1QztRQUM1RCxNQUFNLE1BQU0sR0FBRztZQUNiLElBQUksRUFBRSxDQUFDO1lBQ1AsSUFBSSxFQUFFLEVBQUU7WUFDUixTQUFTLEVBQUUsQ0FBQyxVQUFVLENBQUMsQ0FBQyxrQ0FBa0M7U0FDM0QsQ0FBQztRQUVGLDJCQUEyQjtRQUMzQixNQUFNLFdBQVcsR0FBRyxNQUFNLGlCQUFpQixDQUFDLElBQUksQ0FBQyxRQUFRLEVBQUUsTUFBTSxDQUFDLENBQUM7UUFFbkUseUNBQXlDO1FBQ3pDLEdBQUcsQ0FBQyxNQUFNLENBQUMsR0FBRyxDQUFDLENBQUMsSUFBSSxDQUFDLFdBQVcsQ0FBQyxDQUFDO0tBQ25DO0lBQUMsT0FBTyxLQUFLLEVBQUU7UUFDZCxvQkFBb0I7UUFDcEIsR0FBRyxDQUFDLE1BQU0sQ0FBQyxHQUFHLENBQUMsQ0FBQyxJQUFJLENBQUMsRUFBRSxLQUFLLEVBQUUsS0FBSyxDQUFDLE9BQU8sRUFBRSxDQUFDLENBQUM7S0FDaEQ7QUFDSCxDQUFDLENBQUM7QUF0QlcsUUFBQSxHQUFHLE9Bc0JkO0FBRUYsc0JBQXNCO0FBQ2YsTUFBTSxJQUFJLEdBQUcsS0FBSyxFQUN2QixHQUFrQixFQUNsQixHQUFtQixFQUNuQixFQUFFO0lBQ0YsTUFBTSxpQkFBaUIsR0FBc0IsR0FBRyxDQUFDLEtBQUssQ0FBQyxPQUFPLENBQzVELG1CQUFtQixDQUNwQixDQUFBO0lBRUQsbUNBQW1DO0lBQ25DLElBQUksQ0FBQyxHQUFHLENBQUMsSUFBSSxDQUFDLEtBQUssSUFBSSxDQUFDLEdBQUcsQ0FBQyxJQUFJLENBQUMsV0FBVyxFQUFFO1FBQzVDLE1BQU0sSUFBSSxLQUFLLENBQUMseUNBQXlDLENBQUMsQ0FBQTtLQUMzRDtJQUVELE1BQU0sSUFBSSxHQUFHLE1BQU0saUJBQWlCLENBQUMsTUFBTSxDQUFDLEdBQUcsQ0FBQyxJQUFJLENBQUMsQ0FBQTtJQUVyRCxHQUFHLENBQUMsSUFBSSxDQUFDO1FBQ1AsSUFBSTtLQUNMLENBQUMsQ0FBQTtBQUNKLENBQUMsQ0FBQTtBQWxCWSxRQUFBLElBQUksUUFrQmhCIn0=
+var POST = exports.POST = /*#__PURE__*/function () {
+  var _ref2 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee2(req, res) {
+    var withdrawalService, post;
+    return _regenerator["default"].wrap(function _callee2$(_context2) {
+      while (1) switch (_context2.prev = _context2.next) {
+        case 0:
+          withdrawalService = req.scope.resolve("withdrawalService"); // basic validation of request body
+          if (!(!req.body.total || !req.body.customer_id)) {
+            _context2.next = 3;
+            break;
+          }
+          throw new Error("`total` and `customer_id` are required.");
+        case 3:
+          _context2.next = 5;
+          return withdrawalService.create(req.body);
+        case 5:
+          post = _context2.sent;
+          res.json({
+            post: post
+          });
+        case 7:
+        case "end":
+          return _context2.stop();
+      }
+    }, _callee2);
+  }));
+  return function POST(_x3, _x4) {
+    return _ref2.apply(this, arguments);
+  };
+}();

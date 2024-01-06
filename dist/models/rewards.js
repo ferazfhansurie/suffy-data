@@ -1,52 +1,86 @@
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-Object.defineProperty(exports, "__esModule", { value: true });
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 exports.Rewards = void 0;
-const typeorm_1 = require("typeorm");
-const medusa_1 = require("@medusajs/medusa");
-const utils_1 = require("@medusajs/medusa/dist/utils");
-const redeem_1 = require("./redeem");
-let Rewards = class Rewards extends medusa_1.BaseEntity {
-    beforeInsert() {
-        this.id = (0, utils_1.generateEntityId)(this.id, "rewards");
+var _initializerDefineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/initializerDefineProperty"));
+var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/classCallCheck"));
+var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/createClass"));
+var _assertThisInitialized2 = _interopRequireDefault(require("@babel/runtime/helpers/assertThisInitialized"));
+var _inherits2 = _interopRequireDefault(require("@babel/runtime/helpers/inherits"));
+var _possibleConstructorReturn2 = _interopRequireDefault(require("@babel/runtime/helpers/possibleConstructorReturn"));
+var _getPrototypeOf2 = _interopRequireDefault(require("@babel/runtime/helpers/getPrototypeOf"));
+var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
+var _applyDecoratedDescriptor2 = _interopRequireDefault(require("@babel/runtime/helpers/applyDecoratedDescriptor"));
+var _initializerWarningHelper2 = _interopRequireDefault(require("@babel/runtime/helpers/initializerWarningHelper"));
+var _typeorm = require("typeorm");
+var _medusa = require("@medusajs/medusa");
+var _utils = require("@medusajs/medusa/dist/utils");
+var _redeem = require("./redeem");
+var _dec, _dec2, _dec3, _dec4, _dec5, _dec6, _dec7, _dec8, _dec9, _dec10, _dec11, _dec12, _dec13, _dec14, _class, _class2, _descriptor, _descriptor2, _descriptor3, _descriptor4, _descriptor5;
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = (0, _getPrototypeOf2["default"])(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = (0, _getPrototypeOf2["default"])(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return (0, _possibleConstructorReturn2["default"])(this, result); }; }
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+var Rewards = exports.Rewards = (_dec = (0, _typeorm.Entity)(), _dec2 = (0, _typeorm.Column)({
+  type: "int"
+}), _dec3 = Reflect.metadata("design:type", Number), _dec4 = (0, _typeorm.Column)({
+  type: "varchar"
+}), _dec5 = Reflect.metadata("design:type", String), _dec6 = (0, _typeorm.Column)({
+  type: "varchar"
+}), _dec7 = Reflect.metadata("design:type", String), _dec8 = (0, _typeorm.Column)({
+  type: "varchar"
+}), _dec9 = Reflect.metadata("design:type", String), _dec10 = (0, _typeorm.OneToMany)(function () {
+  return _redeem.Redeem;
+}, function (redeem) {
+  return redeem.rewards;
+}), _dec11 = Reflect.metadata("design:type", Array), _dec12 = (0, _typeorm.BeforeInsert)(), _dec13 = Reflect.metadata("design:type", Function), _dec14 = Reflect.metadata("design:paramtypes", []), _dec(_class = (_class2 = /*#__PURE__*/function (_BaseEntity) {
+  (0, _inherits2["default"])(Rewards, _BaseEntity);
+  var _super = _createSuper(Rewards);
+  function Rewards() {
+    var _this;
+    (0, _classCallCheck2["default"])(this, Rewards);
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
     }
-};
-__decorate([
-    (0, typeorm_1.Column)({ type: "int" }),
-    __metadata("design:type", Number)
-], Rewards.prototype, "price", void 0);
-__decorate([
-    (0, typeorm_1.Column)({ type: "varchar" }),
-    __metadata("design:type", String)
-], Rewards.prototype, "image", void 0);
-__decorate([
-    (0, typeorm_1.Column)({ type: "varchar" }),
-    __metadata("design:type", String)
-], Rewards.prototype, "details", void 0);
-__decorate([
-    (0, typeorm_1.Column)({ type: "varchar" }),
-    __metadata("design:type", String)
-], Rewards.prototype, "caption", void 0);
-__decorate([
-    (0, typeorm_1.OneToMany)(() => redeem_1.Redeem, (redeem) => redeem.rewards),
-    __metadata("design:type", Array)
-], Rewards.prototype, "redeem", void 0);
-__decorate([
-    (0, typeorm_1.BeforeInsert)(),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
-], Rewards.prototype, "beforeInsert", null);
-Rewards = __decorate([
-    (0, typeorm_1.Entity)()
-], Rewards);
-exports.Rewards = Rewards;
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicmV3YXJkcy5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy9tb2RlbHMvcmV3YXJkcy50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7QUFBQSxxQ0FPa0I7QUFDaEIsNkNBQTZDO0FBQzdDLHVEQUE4RDtBQUM5RCxxQ0FBaUM7QUFHMUIsSUFBTSxPQUFPLEdBQWIsTUFBTSxPQUFRLFNBQVEsbUJBQVU7SUFtQjdCLFlBQVk7UUFDbEIsSUFBSSxDQUFDLEVBQUUsR0FBRyxJQUFBLHdCQUFnQixFQUFDLElBQUksQ0FBQyxFQUFFLEVBQUUsU0FBUyxDQUFDLENBQUE7SUFDaEQsQ0FBQztDQUNGLENBQUE7QUFyQkM7SUFBQyxJQUFBLGdCQUFNLEVBQUMsRUFBRSxJQUFJLEVBQUUsS0FBSyxFQUFFLENBQUM7O3NDQUNYO0FBRWI7SUFBQyxJQUFBLGdCQUFNLEVBQUMsRUFBRSxJQUFJLEVBQUUsU0FBUyxFQUFFLENBQUM7O3NDQUNmO0FBRWI7SUFBQyxJQUFBLGdCQUFNLEVBQUMsRUFBRSxJQUFJLEVBQUUsU0FBUyxFQUFFLENBQUM7O3dDQUNiO0FBRWY7SUFBQyxJQUFBLGdCQUFNLEVBQUMsRUFBRSxJQUFJLEVBQUUsU0FBUyxFQUFFLENBQUM7O3dDQUNiO0FBRWY7SUFBQyxJQUFBLG1CQUFTLEVBQUMsR0FBRyxFQUFFLENBQUMsZUFBTSxFQUFFLENBQUMsTUFBTSxFQUFFLEVBQUUsQ0FBQyxNQUFNLENBQUMsT0FBTyxDQUFDOzt1Q0FDdEM7QUFJZDtJQUFDLElBQUEsc0JBQVksR0FBRTs7OzsyQ0FHZDtBQXJCVSxPQUFPO0lBRG5CLElBQUEsZ0JBQU0sR0FBRTtHQUNJLE9BQU8sQ0FzQm5CO0FBdEJZLDBCQUFPIn0=
+    _this = _super.call.apply(_super, [this].concat(args));
+    (0, _initializerDefineProperty2["default"])((0, _assertThisInitialized2["default"])(_this), "price", _descriptor, (0, _assertThisInitialized2["default"])(_this));
+    (0, _initializerDefineProperty2["default"])((0, _assertThisInitialized2["default"])(_this), "image", _descriptor2, (0, _assertThisInitialized2["default"])(_this));
+    (0, _initializerDefineProperty2["default"])((0, _assertThisInitialized2["default"])(_this), "details", _descriptor3, (0, _assertThisInitialized2["default"])(_this));
+    (0, _initializerDefineProperty2["default"])((0, _assertThisInitialized2["default"])(_this), "caption", _descriptor4, (0, _assertThisInitialized2["default"])(_this));
+    (0, _initializerDefineProperty2["default"])((0, _assertThisInitialized2["default"])(_this), "redeem", _descriptor5, (0, _assertThisInitialized2["default"])(_this));
+    return _this;
+  }
+  (0, _createClass2["default"])(Rewards, [{
+    key: "beforeInsert",
+    value: function beforeInsert() {
+      this.id = (0, _utils.generateEntityId)(this.id, "rewards");
+    }
+  }]);
+  return Rewards;
+}(_medusa.BaseEntity), (_descriptor = (0, _applyDecoratedDescriptor2["default"])(_class2.prototype, "price", [_dec2, _dec3], {
+  configurable: true,
+  enumerable: true,
+  writable: true,
+  initializer: null
+}), _descriptor2 = (0, _applyDecoratedDescriptor2["default"])(_class2.prototype, "image", [_dec4, _dec5], {
+  configurable: true,
+  enumerable: true,
+  writable: true,
+  initializer: null
+}), _descriptor3 = (0, _applyDecoratedDescriptor2["default"])(_class2.prototype, "details", [_dec6, _dec7], {
+  configurable: true,
+  enumerable: true,
+  writable: true,
+  initializer: null
+}), _descriptor4 = (0, _applyDecoratedDescriptor2["default"])(_class2.prototype, "caption", [_dec8, _dec9], {
+  configurable: true,
+  enumerable: true,
+  writable: true,
+  initializer: null
+}), _descriptor5 = (0, _applyDecoratedDescriptor2["default"])(_class2.prototype, "redeem", [_dec10, _dec11], {
+  configurable: true,
+  enumerable: true,
+  writable: true,
+  initializer: null
+}), (0, _applyDecoratedDescriptor2["default"])(_class2.prototype, "beforeInsert", [_dec12, _dec13, _dec14], Object.getOwnPropertyDescriptor(_class2.prototype, "beforeInsert"), _class2.prototype)), _class2)) || _class);

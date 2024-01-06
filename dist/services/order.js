@@ -1,80 +1,182 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const medusa_1 = require("@medusajs/medusa");
-const medusa_2 = require("@medusajs/medusa");
-class OrderService extends medusa_1.OrderService {
-    async findRepo(updatedCustomer) {
-        const custRepo = this.activeManager_.getRepository(medusa_2.Customer);
-        return await custRepo.save(updatedCustomer);
-    }
-    // async test(updatedCustomer): Promise<Item[]> {
-    //   const custRepo = this.activeManager_.getRepository(
-    //     Item
-    //   )
-    //   return await custRepo.
-    // }
-    constructor(container) {
-        super(container);
-        this.customerService = container.customerService;
-    }
-    async recursiveFunction(referrer, loyaltyPoints) {
-        var _a;
-        const referrerReferral = (_a = referrer.metadata) === null || _a === void 0 ? void 0 : _a.referrer;
-        if (referrerReferral) {
-            const referrer = "cus_01" + referrerReferral;
-            const referrerCust = await this.customerService.retrieve(referrer);
-            console.log(loyaltyPoints * 0.05);
-            const referrerPoints = Math.round((loyaltyPoints * 0.05) * 100);
-            referrerCust.loyaltyPoints += referrerPoints;
-            await this.findRepo(referrerCust);
-            await this.recursiveFunction(referrerCust, loyaltyPoints);
-        }
-    }
-    async calculateLoyaltyPoints(orderId) {
-        var _a;
-        const order = await this.retrieveWithTotals(orderId);
-        console.log(order.customer_id);
-        const customer = await this.customerService.retrieve(order.customer_id);
-        console.log(customer);
-        const referrerId = (_a = customer.metadata) === null || _a === void 0 ? void 0 : _a.referrer;
-        console.log(String(referrerId));
-        const loyaltyPoints = order.total / 100;
-        console.log(order.total);
-        console.log(order.total);
-        console.log(loyaltyPoints);
-        if (referrerId) {
-            // Logic to handle the referrer
-            // For example, update the referrer's loyalty points
-            const referrer = "cus_01" + customer.metadata.referrer;
-            console.log(referrer);
-            const referrercust = await this.customerService.retrieve(referrer);
-            console.log(referrercust);
-            console.log(loyaltyPoints * 0.2);
-            const referrerPoints = Math.round((loyaltyPoints * 0.20) * 100);
-            console.log(referrerPoints);
-            referrercust.loyaltyPoints += referrerPoints;
-            await this.findRepo(referrercust);
-            await this.recursiveFunction(referrercust, loyaltyPoints);
-        }
-        // Assuming order.cart.items is an array of items and each item has a 'quantity' property
-        const totalQuantity = order.items.reduce((total, item) => {
-            return total + item.quantity;
-        }, 0); // Start with a total of 0
-        customer.totalOrders += 1;
-        console.log(totalQuantity);
-        if (totalQuantity >= 10) {
-            console.log(totalQuantity);
-            customer.totalBulkPurchase = customer.totalBulkPurchase + Math.floor(totalQuantity / 10);
-        }
-        order.loyaltyPoints += loyaltyPoints;
-        console.log(order);
-        const updatedOrder = await this.orderRepository_.save(order);
-        await this.findRepo(customer);
-        console.log(updatedOrder);
-        // Apply the loyalty points to the customer's account
-        //   await this.customerService.makeLoyaltyPoints(order.customer_id, loyaltyPoints)
-        return updatedOrder;
-    }
-}
-exports.default = OrderService;
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoib3JkZXIuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi9zcmMvc2VydmljZXMvb3JkZXIudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7QUFBQSw2Q0FLMkI7QUFDekIsNkNBQWlEO0FBR2pELE1BQXFCLFlBQWEsU0FBUSxxQkFBa0I7SUFJMUQsS0FBSyxDQUFDLFFBQVEsQ0FBQyxlQUFlO1FBQzFCLE1BQU0sUUFBUSxHQUFHLElBQUksQ0FBQyxjQUFjLENBQUMsYUFBYSxDQUNoRCxpQkFBUSxDQUNULENBQUE7UUFDRCxPQUFPLE1BQU0sUUFBUSxDQUFDLElBQUksQ0FBQyxlQUFlLENBQUMsQ0FBQTtJQUM3QyxDQUFDO0lBRUQsaURBQWlEO0lBQ2pELHdEQUF3RDtJQUN4RCxXQUFXO0lBQ1gsTUFBTTtJQUNOLDJCQUEyQjtJQUMzQixJQUFJO0lBRU4sWUFBWSxTQUFTO1FBQ2pCLEtBQUssQ0FBQyxTQUFTLENBQUMsQ0FBQTtRQUNoQixJQUFJLENBQUMsZUFBZSxHQUFHLFNBQVMsQ0FBQyxlQUFlLENBQUE7SUFFcEQsQ0FBQztJQUdELEtBQUssQ0FBQyxpQkFBaUIsQ0FBQyxRQUFRLEVBQUUsYUFBYTs7UUFDN0MsTUFBTSxnQkFBZ0IsR0FBRyxNQUFBLFFBQVEsQ0FBQyxRQUFRLDBDQUFFLFFBQVEsQ0FBQztRQUNyRCxJQUFHLGdCQUFnQixFQUFDO1lBQ2xCLE1BQU0sUUFBUSxHQUFHLFFBQVEsR0FBRyxnQkFBZ0IsQ0FBQztZQUM3QyxNQUFNLFlBQVksR0FBRyxNQUFNLElBQUksQ0FBQyxlQUFlLENBQUMsUUFBUSxDQUFDLFFBQVEsQ0FBQyxDQUFBO1lBQ2xFLE9BQU8sQ0FBQyxHQUFHLENBQUMsYUFBYSxHQUFDLElBQUksQ0FBQyxDQUFBO1lBQy9CLE1BQU0sY0FBYyxHQUFHLElBQUksQ0FBQyxLQUFLLENBQUMsQ0FBQyxhQUFhLEdBQUMsSUFBSSxDQUFDLEdBQUMsR0FBRyxDQUFDLENBQUE7WUFDM0QsWUFBWSxDQUFDLGFBQWEsSUFB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
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = void 0;
+var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
+var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/asyncToGenerator"));
+var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/classCallCheck"));
+var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/createClass"));
+var _inherits2 = _interopRequireDefault(require("@babel/runtime/helpers/inherits"));
+var _possibleConstructorReturn2 = _interopRequireDefault(require("@babel/runtime/helpers/possibleConstructorReturn"));
+var _getPrototypeOf2 = _interopRequireDefault(require("@babel/runtime/helpers/getPrototypeOf"));
+var _medusa = require("@medusajs/medusa");
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = (0, _getPrototypeOf2["default"])(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = (0, _getPrototypeOf2["default"])(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return (0, _possibleConstructorReturn2["default"])(this, result); }; }
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+var OrderService = exports["default"] = /*#__PURE__*/function (_MedusaOrderService) {
+  (0, _inherits2["default"])(OrderService, _MedusaOrderService);
+  var _super = _createSuper(OrderService);
+  // async test(updatedCustomer): Promise<Item[]> {
+  //   const custRepo = this.activeManager_.getRepository(
+  //     Item
+  //   )
+  //   return await custRepo.
+  // }
+
+  function OrderService(container) {
+    var _this;
+    (0, _classCallCheck2["default"])(this, OrderService);
+    _this = _super.call(this, container);
+    _this.customerService = container.customerService;
+    return _this;
+  }
+  (0, _createClass2["default"])(OrderService, [{
+    key: "findRepo",
+    value: function () {
+      var _findRepo = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee(updatedCustomer) {
+        var custRepo;
+        return _regenerator["default"].wrap(function _callee$(_context) {
+          while (1) switch (_context.prev = _context.next) {
+            case 0:
+              custRepo = this.activeManager_.getRepository(_medusa.Customer);
+              _context.next = 3;
+              return custRepo.save(updatedCustomer);
+            case 3:
+              return _context.abrupt("return", _context.sent);
+            case 4:
+            case "end":
+              return _context.stop();
+          }
+        }, _callee, this);
+      }));
+      function findRepo(_x) {
+        return _findRepo.apply(this, arguments);
+      }
+      return findRepo;
+    }()
+  }, {
+    key: "recursiveFunction",
+    value: function () {
+      var _recursiveFunction = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee2(referrer, loyaltyPoints) {
+        var _referrer$metadata;
+        var referrerReferral, _referrer, referrerCust, referrerPoints;
+        return _regenerator["default"].wrap(function _callee2$(_context2) {
+          while (1) switch (_context2.prev = _context2.next) {
+            case 0:
+              referrerReferral = (_referrer$metadata = referrer.metadata) === null || _referrer$metadata === void 0 ? void 0 : _referrer$metadata.referrer;
+              if (!referrerReferral) {
+                _context2.next = 13;
+                break;
+              }
+              _referrer = "cus_01" + referrerReferral;
+              _context2.next = 5;
+              return this.customerService.retrieve(_referrer);
+            case 5:
+              referrerCust = _context2.sent;
+              console.log(loyaltyPoints * 0.05);
+              referrerPoints = Math.round(loyaltyPoints * 0.05 * 100);
+              referrerCust.loyaltyPoints += referrerPoints;
+              _context2.next = 11;
+              return this.findRepo(referrerCust);
+            case 11:
+              _context2.next = 13;
+              return this.recursiveFunction(referrerCust, loyaltyPoints);
+            case 13:
+            case "end":
+              return _context2.stop();
+          }
+        }, _callee2, this);
+      }));
+      function recursiveFunction(_x2, _x3) {
+        return _recursiveFunction.apply(this, arguments);
+      }
+      return recursiveFunction;
+    }()
+  }, {
+    key: "calculateLoyaltyPoints",
+    value: function () {
+      var _calculateLoyaltyPoints = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee3(orderId) {
+        var _customer$metadata;
+        var order, customer, referrerId, loyaltyPoints, referrer, referrercust, referrerPoints, totalQuantity, updatedOrder;
+        return _regenerator["default"].wrap(function _callee3$(_context3) {
+          while (1) switch (_context3.prev = _context3.next) {
+            case 0:
+              _context3.next = 2;
+              return this.retrieveWithTotals(orderId);
+            case 2:
+              order = _context3.sent;
+              console.log(order.customer_id);
+              _context3.next = 6;
+              return this.customerService.retrieve(order.customer_id);
+            case 6:
+              customer = _context3.sent;
+              console.log(customer);
+              referrerId = (_customer$metadata = customer.metadata) === null || _customer$metadata === void 0 ? void 0 : _customer$metadata.referrer;
+              console.log(String(referrerId));
+              loyaltyPoints = order.total / 100;
+              console.log(order.total);
+              console.log(order.total);
+              console.log(loyaltyPoints);
+              if (!referrerId) {
+                _context3.next = 29;
+                break;
+              }
+              // Logic to handle the referrer
+              // For example, update the referrer's loyalty points
+              referrer = "cus_01" + customer.metadata.referrer;
+              console.log(referrer);
+              _context3.next = 19;
+              return this.customerService.retrieve(referrer);
+            case 19:
+              referrercust = _context3.sent;
+              console.log(referrercust);
+              console.log(loyaltyPoints * 0.2);
+              referrerPoints = Math.round(loyaltyPoints * 0.20 * 100);
+              console.log(referrerPoints);
+              referrercust.loyaltyPoints += referrerPoints;
+              _context3.next = 27;
+              return this.findRepo(referrercust);
+            case 27:
+              _context3.next = 29;
+              return this.recursiveFunction(referrercust, loyaltyPoints);
+            case 29:
+              // Assuming order.cart.items is an array of items and each item has a 'quantity' property
+              totalQuantity = order.items.reduce(function (total, item) {
+                return total + item.quantity;
+              }, 0); // Start with a total of 0
+              customer.totalOrders += 1;
+              console.log(totalQuantity);
+              if (totalQuantity >= 10) {
+                console.log(totalQuantity);
+                customer.totalBulkPurchase = customer.totalBulkPurchase + Math.floor(totalQuantity / 10);
+              }
+              order.loyaltyPoints += loyaltyPoints;
+              console.log(order);
+              _context3.next = 37;
+              return this.orderRepository_.save(order);
+            case 37:
+              updatedOrder = _context3.sent;
+              _context3.next = 40;
+              return this.findRepo(customer);
+            case 40:
+              console.log(updatedOrder);
+
+              // Apply the loyalty points to the customer's account
+              //   await this.customerService.makeLoyaltyPoints(order.customer_id, loyaltyPoints)
+              return _context3.abrupt("return", updatedOrder);
+            case 42:
+            case "end":
+              return _context3.stop();
+          }
+        }, _callee3, this);
+      }));
+      function calculateLoyaltyPoints(_x4) {
+        return _calculateLoyaltyPoints.apply(this, arguments);
+      }
+      return calculateLoyaltyPoints;
+    }()
+  }]);
+  return OrderService;
+}(_medusa.OrderService);

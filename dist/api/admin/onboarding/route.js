@@ -1,21 +1,79 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.POST = exports.GET = void 0;
-async function GET(req, res) {
-    const onboardingService = req.scope.resolve("onboardingService");
-    const status = await onboardingService.retrieve();
-    res.status(200).json({ status });
-}
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 exports.GET = GET;
-async function POST(req, res) {
-    const onboardingService = req.scope.resolve("onboardingService");
-    const manager = req.scope.resolve("manager");
-    const status = await manager.transaction(async (transactionManager) => {
-        return await onboardingService
-            .withTransaction(transactionManager)
-            .update(req.body);
-    });
-    res.status(200).json({ status });
-}
 exports.POST = POST;
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicm91dGUuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi8uLi8uLi9zcmMvYXBpL2FkbWluL29uYm9hcmRpbmcvcm91dGUudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7O0FBS08sS0FBSyxVQUFVLEdBQUcsQ0FBQyxHQUFrQixFQUFFLEdBQW1CO0lBQy9ELE1BQU0saUJBQWlCLEdBQ3JCLEdBQUcsQ0FBQyxLQUFLLENBQUMsT0FBTyxDQUFDLG1CQUFtQixDQUFDLENBQUM7SUFFekMsTUFBTSxNQUFNLEdBQUcsTUFBTSxpQkFBaUIsQ0FBQyxRQUFRLEVBQUUsQ0FBQztJQUVsRCxHQUFHLENBQUMsTUFBTSxDQUFDLEdBQUcsQ0FBQyxDQUFDLElBQUksQ0FBQyxFQUFFLE1BQU0sRUFBRSxDQUFDLENBQUM7QUFDbkMsQ0FBQztBQVBELGtCQU9DO0FBRU0sS0FBSyxVQUFVLElBQUksQ0FBQyxHQUFrQixFQUFFLEdBQW1CO0lBQ2hFLE1BQU0saUJBQWlCLEdBQ3JCLEdBQUcsQ0FBQyxLQUFLLENBQUMsT0FBTyxDQUFDLG1CQUFtQixDQUFDLENBQUM7SUFDekMsTUFBTSxPQUFPLEdBQWtCLEdBQUcsQ0FBQyxLQUFLLENBQUMsT0FBTyxDQUFDLFNBQVMsQ0FBQyxDQUFDO0lBRTVELE1BQU0sTUFBTSxHQUFHLE1BQU0sT0FBTyxDQUFDLFdBQVcsQ0FBQyxLQUFLLEVBQUUsa0JBQWtCLEVBQUUsRUFBRTtRQUNwRSxPQUFPLE1BQU0saUJBQWlCO2FBQzNCLGVBQWUsQ0FBQyxrQkFBa0IsQ0FBQzthQUNuQyxNQUFNLENBQUMsR0FBRyxDQUFDLElBQUksQ0FBQyxDQUFDO0lBQ3RCLENBQUMsQ0FBQyxDQUFDO0lBRUgsR0FBRyxDQUFDLE1BQU0sQ0FBQyxHQUFHLENBQUMsQ0FBQyxJQUFJLENBQUMsRUFBRSxNQUFNLEVBQUUsQ0FBQyxDQUFDO0FBQ25DLENBQUM7QUFaRCxvQkFZQyJ9
+var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
+var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/asyncToGenerator"));
+function GET(_x, _x2) {
+  return _GET.apply(this, arguments);
+}
+function _GET() {
+  _GET = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee(req, res) {
+    var onboardingService, status;
+    return _regenerator["default"].wrap(function _callee$(_context) {
+      while (1) switch (_context.prev = _context.next) {
+        case 0:
+          onboardingService = req.scope.resolve("onboardingService");
+          _context.next = 3;
+          return onboardingService.retrieve();
+        case 3:
+          status = _context.sent;
+          res.status(200).json({
+            status: status
+          });
+        case 5:
+        case "end":
+          return _context.stop();
+      }
+    }, _callee);
+  }));
+  return _GET.apply(this, arguments);
+}
+function POST(_x3, _x4) {
+  return _POST.apply(this, arguments);
+}
+function _POST() {
+  _POST = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee3(req, res) {
+    var onboardingService, manager, status;
+    return _regenerator["default"].wrap(function _callee3$(_context3) {
+      while (1) switch (_context3.prev = _context3.next) {
+        case 0:
+          onboardingService = req.scope.resolve("onboardingService");
+          manager = req.scope.resolve("manager");
+          _context3.next = 4;
+          return manager.transaction( /*#__PURE__*/function () {
+            var _ref = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee2(transactionManager) {
+              return _regenerator["default"].wrap(function _callee2$(_context2) {
+                while (1) switch (_context2.prev = _context2.next) {
+                  case 0:
+                    _context2.next = 2;
+                    return onboardingService.withTransaction(transactionManager).update(req.body);
+                  case 2:
+                    return _context2.abrupt("return", _context2.sent);
+                  case 3:
+                  case "end":
+                    return _context2.stop();
+                }
+              }, _callee2);
+            }));
+            return function (_x5) {
+              return _ref.apply(this, arguments);
+            };
+          }());
+        case 4:
+          status = _context3.sent;
+          res.status(200).json({
+            status: status
+          });
+        case 6:
+        case "end":
+          return _context3.stop();
+      }
+    }, _callee3);
+  }));
+  return _POST.apply(this, arguments);
+}

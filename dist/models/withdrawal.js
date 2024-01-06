@@ -1,53 +1,88 @@
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-Object.defineProperty(exports, "__esModule", { value: true });
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 exports.Withdrawal = void 0;
-const typeorm_1 = require("typeorm");
-const medusa_1 = require("@medusajs/medusa");
-const utils_1 = require("@medusajs/medusa/dist/utils");
-const customer_1 = require("./customer");
-let Withdrawal = class Withdrawal extends medusa_1.BaseEntity {
-    beforeInsert() {
-        this.id = (0, utils_1.generateEntityId)(this.id, "withdrawal");
+var _initializerDefineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/initializerDefineProperty"));
+var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/classCallCheck"));
+var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/createClass"));
+var _assertThisInitialized2 = _interopRequireDefault(require("@babel/runtime/helpers/assertThisInitialized"));
+var _inherits2 = _interopRequireDefault(require("@babel/runtime/helpers/inherits"));
+var _possibleConstructorReturn2 = _interopRequireDefault(require("@babel/runtime/helpers/possibleConstructorReturn"));
+var _getPrototypeOf2 = _interopRequireDefault(require("@babel/runtime/helpers/getPrototypeOf"));
+var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
+var _applyDecoratedDescriptor2 = _interopRequireDefault(require("@babel/runtime/helpers/applyDecoratedDescriptor"));
+var _initializerWarningHelper2 = _interopRequireDefault(require("@babel/runtime/helpers/initializerWarningHelper"));
+var _typeorm = require("typeorm");
+var _medusa = require("@medusajs/medusa");
+var _utils = require("@medusajs/medusa/dist/utils");
+var _customer = require("./customer");
+var _dec, _dec2, _dec3, _dec4, _dec5, _dec6, _dec7, _dec8, _dec9, _dec10, _dec11, _dec12, _dec13, _dec14, _dec15, _class, _class2, _descriptor, _descriptor2, _descriptor3, _descriptor4, _descriptor5;
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = (0, _getPrototypeOf2["default"])(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = (0, _getPrototypeOf2["default"])(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return (0, _possibleConstructorReturn2["default"])(this, result); }; }
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+var Withdrawal = exports.Withdrawal = (_dec = (0, _typeorm.Entity)(), _dec2 = (0, _typeorm.Column)({
+  type: "int"
+}), _dec3 = Reflect.metadata("design:type", Number), _dec4 = (0, _typeorm.Column)({
+  type: "varchar"
+}), _dec5 = Reflect.metadata("design:type", String), _dec6 = (0, _typeorm.Column)({
+  type: "varchar"
+}), _dec7 = Reflect.metadata("design:type", String), _dec8 = (0, _typeorm.Column)({
+  type: "varchar"
+}), _dec9 = Reflect.metadata("design:type", String), _dec10 = (0, _typeorm.ManyToOne)(function () {
+  return _customer.Customer;
+}, function (customer) {
+  return customer.withdrawals;
+}), _dec11 = (0, _typeorm.JoinColumn)({
+  name: "customer_id"
+}), _dec12 = Reflect.metadata("design:type", typeof _customer.Customer === "undefined" ? Object : _customer.Customer), _dec13 = (0, _typeorm.BeforeInsert)(), _dec14 = Reflect.metadata("design:type", Function), _dec15 = Reflect.metadata("design:paramtypes", []), _dec(_class = (_class2 = /*#__PURE__*/function (_BaseEntity) {
+  (0, _inherits2["default"])(Withdrawal, _BaseEntity);
+  var _super = _createSuper(Withdrawal);
+  function Withdrawal() {
+    var _this;
+    (0, _classCallCheck2["default"])(this, Withdrawal);
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
     }
-};
-__decorate([
-    (0, typeorm_1.Column)({ type: "int" }),
-    __metadata("design:type", Number)
-], Withdrawal.prototype, "total", void 0);
-__decorate([
-    (0, typeorm_1.Column)({ type: "varchar" }),
-    __metadata("design:type", String)
-], Withdrawal.prototype, "status", void 0);
-__decorate([
-    (0, typeorm_1.Column)({ type: "varchar" }),
-    __metadata("design:type", String)
-], Withdrawal.prototype, "reason", void 0);
-__decorate([
-    (0, typeorm_1.Column)({ type: "varchar" }),
-    __metadata("design:type", String)
-], Withdrawal.prototype, "customer_id", void 0);
-__decorate([
-    (0, typeorm_1.ManyToOne)(() => customer_1.Customer, (customer) => customer.withdrawals),
-    (0, typeorm_1.JoinColumn)({ name: "customer_id" }),
-    __metadata("design:type", customer_1.Customer)
-], Withdrawal.prototype, "customer", void 0);
-__decorate([
-    (0, typeorm_1.BeforeInsert)(),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
-], Withdrawal.prototype, "beforeInsert", null);
-Withdrawal = __decorate([
-    (0, typeorm_1.Entity)()
-], Withdrawal);
-exports.Withdrawal = Withdrawal;
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoid2l0aGRyYXdhbC5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy9tb2RlbHMvd2l0aGRyYXdhbC50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7QUFBQSxxQ0FNa0I7QUFDaEIsNkNBQTZDO0FBQzdDLHVEQUE4RDtBQUM5RCx5Q0FBcUM7QUFHOUIsSUFBTSxVQUFVLEdBQWhCLE1BQU0sVUFBVyxTQUFRLG1CQUFVO0lBb0JoQyxZQUFZO1FBQ2xCLElBQUksQ0FBQyxFQUFFLEdBQUcsSUFBQSx3QkFBZ0IsRUFBQyxJQUFJLENBQUMsRUFBRSxFQUFFLFlBQVksQ0FBQyxDQUFBO0lBQ25ELENBQUM7Q0FDRixDQUFBO0FBdEJDO0lBQUMsSUFBQSxnQkFBTSxFQUFDLEVBQUUsSUFBSSxFQUFFLEtBQUssRUFBRSxDQUFDOzt5Q0FDWDtBQUViO0lBQUMsSUFBQSxnQkFBTSxFQUFDLEVBQUUsSUFBSSxFQUFFLFNBQVMsRUFBRSxDQUFDOzswQ0FDZDtBQUVkO0lBQUMsSUFBQSxnQkFBTSxFQUFDLEVBQUUsSUFBSSxFQUFFLFNBQVMsRUFBRSxDQUFDOzswQ0FDZDtBQUVkO0lBQUMsSUFBQSxnQkFBTSxFQUFDLEVBQUUsSUFBSSxFQUFFLFNBQVMsRUFBRSxDQUFDOzsrQ0FDVDtBQUluQjtJQUFDLElBQUEsbUJBQVMsRUFBQyxHQUFHLEVBQUUsQ0FBQyxtQkFBUSxFQUFFLENBQUMsUUFBUSxFQUFFLEVBQUUsQ0FBQyxRQUFRLENBQUMsV0FBVyxDQUFDO0lBQzdELElBQUEsb0JBQVUsRUFBQyxFQUFFLElBQUksRUFBRSxhQUFhLEVBQUUsQ0FBQzs4QkFDMUIsbUJBQVE7NENBQUE7QUFFbEI7SUFBQyxJQUFBLHNCQUFZLEdBQUU7Ozs7OENBR2Q7QUF0QlUsVUFBVTtJQUR0QixJQUFBLGdCQUFNLEdBQUU7R0FDSSxVQUFVLENBdUJ0QjtBQXZCWSxnQ0FBVSJ9
+    _this = _super.call.apply(_super, [this].concat(args));
+    (0, _initializerDefineProperty2["default"])((0, _assertThisInitialized2["default"])(_this), "total", _descriptor, (0, _assertThisInitialized2["default"])(_this));
+    (0, _initializerDefineProperty2["default"])((0, _assertThisInitialized2["default"])(_this), "status", _descriptor2, (0, _assertThisInitialized2["default"])(_this));
+    (0, _initializerDefineProperty2["default"])((0, _assertThisInitialized2["default"])(_this), "reason", _descriptor3, (0, _assertThisInitialized2["default"])(_this));
+    (0, _initializerDefineProperty2["default"])((0, _assertThisInitialized2["default"])(_this), "customer_id", _descriptor4, (0, _assertThisInitialized2["default"])(_this));
+    (0, _initializerDefineProperty2["default"])((0, _assertThisInitialized2["default"])(_this), "customer", _descriptor5, (0, _assertThisInitialized2["default"])(_this));
+    return _this;
+  }
+  (0, _createClass2["default"])(Withdrawal, [{
+    key: "beforeInsert",
+    value: function beforeInsert() {
+      this.id = (0, _utils.generateEntityId)(this.id, "withdrawal");
+    }
+  }]);
+  return Withdrawal;
+}(_medusa.BaseEntity), (_descriptor = (0, _applyDecoratedDescriptor2["default"])(_class2.prototype, "total", [_dec2, _dec3], {
+  configurable: true,
+  enumerable: true,
+  writable: true,
+  initializer: null
+}), _descriptor2 = (0, _applyDecoratedDescriptor2["default"])(_class2.prototype, "status", [_dec4, _dec5], {
+  configurable: true,
+  enumerable: true,
+  writable: true,
+  initializer: null
+}), _descriptor3 = (0, _applyDecoratedDescriptor2["default"])(_class2.prototype, "reason", [_dec6, _dec7], {
+  configurable: true,
+  enumerable: true,
+  writable: true,
+  initializer: null
+}), _descriptor4 = (0, _applyDecoratedDescriptor2["default"])(_class2.prototype, "customer_id", [_dec8, _dec9], {
+  configurable: true,
+  enumerable: true,
+  writable: true,
+  initializer: null
+}), _descriptor5 = (0, _applyDecoratedDescriptor2["default"])(_class2.prototype, "customer", [_dec10, _dec11, _dec12], {
+  configurable: true,
+  enumerable: true,
+  writable: true,
+  initializer: null
+}), (0, _applyDecoratedDescriptor2["default"])(_class2.prototype, "beforeInsert", [_dec13, _dec14, _dec15], Object.getOwnPropertyDescriptor(_class2.prototype, "beforeInsert"), _class2.prototype)), _class2)) || _class);

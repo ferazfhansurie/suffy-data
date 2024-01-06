@@ -1,21 +1,58 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 exports.CustomerExtend21702901304517 = void 0;
-class CustomerExtend21702901304517 {
-    async up(queryRunner) {
-        await queryRunner.query("ALTER TABLE \"customer\"" +
-            " ADD COLUMN \"totalOrders\" int," +
-            " ADD COLUMN \"recruits\" int," +
-            " ADD COLUMN \"totalBulkPurchase\" int," +
-            " ADD COLUMN \"totalProfitShare\" int");
-    }
-    async down(queryRunner) {
-        await queryRunner.query("ALTER TABLE \"customer\"" +
-            " DROP COLUMN \"totalOrders\"," +
-            " DROP COLUMN \"recruits\"," +
-            " DROP COLUMN \"totalBulkPurchase\"," +
-            " DROP COLUMN \"totalProfitShare\"");
-    }
-}
-exports.CustomerExtend21702901304517 = CustomerExtend21702901304517;
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMTcwMjkwMTMwNDUxNy1DdXN0b21lckV4dGVuZDIuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi9zcmMvbWlncmF0aW9ucy8xNzAyOTAxMzA0NTE3LUN1c3RvbWVyRXh0ZW5kMi50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7QUFFQSxNQUFhLDRCQUE0QjtJQUU5QixLQUFLLENBQUMsRUFBRSxDQUFDLFdBQXdCO1FBQ3BDLE1BQU0sV0FBVyxDQUFDLEtBQUssQ0FDckIsMEJBQTBCO1lBQzFCLGtDQUFrQztZQUNsQywrQkFBK0I7WUFDL0Isd0NBQXdDO1lBQ3hDLHNDQUFzQyxDQUN2QyxDQUFBO0lBQ0gsQ0FBQztJQUVNLEtBQUssQ0FBQyxJQUFJLENBQUMsV0FBd0I7UUFDeEMsTUFBTSxXQUFXLENBQUMsS0FBSyxDQUNyQiwwQkFBMEI7WUFDMUIsK0JBQStCO1lBQy9CLDRCQUE0QjtZQUM1QixxQ0FBcUM7WUFDckMsbUNBQW1DLENBQ3BDLENBQUE7SUFDSCxDQUFDO0NBRU47QUF0QkQsb0VBc0JDIn0=
+var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
+var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/asyncToGenerator"));
+var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/classCallCheck"));
+var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/createClass"));
+var CustomerExtend21702901304517 = exports.CustomerExtend21702901304517 = /*#__PURE__*/function () {
+  function CustomerExtend21702901304517() {
+    (0, _classCallCheck2["default"])(this, CustomerExtend21702901304517);
+  }
+  (0, _createClass2["default"])(CustomerExtend21702901304517, [{
+    key: "up",
+    value: function () {
+      var _up = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee(queryRunner) {
+        return _regenerator["default"].wrap(function _callee$(_context) {
+          while (1) switch (_context.prev = _context.next) {
+            case 0:
+              _context.next = 2;
+              return queryRunner.query("ALTER TABLE \"customer\"" + " ADD COLUMN \"totalOrders\" int," + " ADD COLUMN \"recruits\" int," + " ADD COLUMN \"totalBulkPurchase\" int," + " ADD COLUMN \"totalProfitShare\" int");
+            case 2:
+            case "end":
+              return _context.stop();
+          }
+        }, _callee);
+      }));
+      function up(_x) {
+        return _up.apply(this, arguments);
+      }
+      return up;
+    }()
+  }, {
+    key: "down",
+    value: function () {
+      var _down = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee2(queryRunner) {
+        return _regenerator["default"].wrap(function _callee2$(_context2) {
+          while (1) switch (_context2.prev = _context2.next) {
+            case 0:
+              _context2.next = 2;
+              return queryRunner.query("ALTER TABLE \"customer\"" + " DROP COLUMN \"totalOrders\"," + " DROP COLUMN \"recruits\"," + " DROP COLUMN \"totalBulkPurchase\"," + " DROP COLUMN \"totalProfitShare\"");
+            case 2:
+            case "end":
+              return _context2.stop();
+          }
+        }, _callee2);
+      }));
+      function down(_x2) {
+        return _down.apply(this, arguments);
+      }
+      return down;
+    }()
+  }]);
+  return CustomerExtend21702901304517;
+}();

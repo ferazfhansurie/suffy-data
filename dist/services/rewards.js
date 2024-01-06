@@ -1,67 +1,271 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const medusa_1 = require("@medusajs/medusa");
-const utils_1 = require("@medusajs/utils");
-class RewardsService extends medusa_1.TransactionBaseService {
-    constructor(container) {
-        super(container);
-        this.rewardsRepository_ = container.rewardsRepository;
-    }
-    async listAndCount(selector, config = {
-        skip: 0,
-        take: 20,
-        relations: [],
-    }) {
-        const rewardsRepo = this.activeManager_.withRepository(this.rewardsRepository_);
-        const query = (0, medusa_1.buildQuery)(selector, config);
-        return rewardsRepo.findAndCount(query);
-    }
-    async list(selector, config = {
-        skip: 0,
-        take: 20,
-        relations: [],
-    }) {
-        const [rewards] = await this.listAndCount(selector, config);
-        return rewards;
-    }
-    async retrieve(id, config) {
-        const rewardsRepo = this.activeManager_.withRepository(this.rewardsRepository_);
-        const query = (0, medusa_1.buildQuery)({
-            id,
-        }, config);
-        const rewards = await rewardsRepo.findOne(query);
-        if (!rewards) {
-            throw new utils_1.MedusaError(utils_1.MedusaError.Types.NOT_FOUND, "Post was not found");
-        }
-        return rewards;
-    }
-    async create(data) {
-        return this.atomicPhase_(async (manager) => {
-            const rewardsRepo = manager.withRepository(this.rewardsRepository_);
-            const rewards = rewardsRepo.create();
-            rewards.price = data.price;
-            rewards.caption = data.caption;
-            rewards.image = data.image;
-            rewards.details = data.details;
-            const result = await rewardsRepo.save(rewards);
-            return result;
-        });
-    }
-    async update(id, data) {
-        return await this.atomicPhase_(async (manager) => {
-            const rewardsRepo = manager.withRepository(this.rewardsRepository_);
-            const rewards = await this.retrieve(id);
-            Object.assign(rewards, data);
-            return await rewardsRepo.save(rewards);
-        });
-    }
-    async delete(id) {
-        return await this.atomicPhase_(async (manager) => {
-            const rewardsRepo = manager.withRepository(this.rewardsRepository_);
-            const rewards = await this.retrieve(id);
-            await rewardsRepo.remove([rewards]);
-        });
-    }
-}
-exports.default = RewardsService;
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicmV3YXJkcy5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy9zZXJ2aWNlcy9yZXdhcmRzLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7O0FBQUEsNkNBSzJCO0FBR3pCLDJDQUE2QztBQUU3QyxNQUFNLGNBQWUsU0FBUSwrQkFBc0I7SUFHakQsWUFBWSxTQUFTO1FBQ25CLEtBQUssQ0FBQyxTQUFTLENBQUMsQ0FBQTtRQUNoQixJQUFJLENBQUMsa0JBQWtCLEdBQUcsU0FBUyxDQUFDLGlCQUFpQixDQUFBO0lBQ3ZELENBQUM7SUFFRCxLQUFLLENBQUMsWUFBWSxDQUNoQixRQUE0QixFQUM1QixTQUE4QjtRQUM1QixJQUFJLEVBQUUsQ0FBQztRQUNQLElBQUksRUFBRSxFQUFFO1FBQ1IsU0FBUyxFQUFFLEVBQUU7S0FDaEI7UUFDQyxNQUFNLFdBQVcsR0FBRyxJQUFJLENBQUMsY0FBYyxDQUFDLGNBQWMsQ0FDcEQsSUFBSSxDQUFDLGtCQUFrQixDQUN4QixDQUFBO1FBRUQsTUFBTSxLQUFLLEdBQUcsSUFBQSxtQkFBVSxFQUFDLFFBQVEsRUFBRSxNQUFNLENBQUMsQ0FBQTtRQUUxQyxPQUFPLFdBQVcsQ0FBQyxZQUFZLENBQUMsS0FBSyxDQUFDLENBQUE7SUFDeEMsQ0FBQztJQUVELEtBQUssQ0FBQyxJQUFJLENBQ1IsUUFBNEIsRUFDNUIsU0FBOEI7UUFDNUIsSUFBSSxFQUFFLENBQUM7UUFDUCxJQUFJLEVBQUUsRUFBRTtRQUNSLFNBQVMsRUFBRSxFQUFFO0tBQ2hCO1FBQ0MsTUFBTSxDQUFDLE9BQU8sQ0FBQyxHQUFHLE1BQU0sSUFBSSxDQUFDLFlBQVksQ0FBQyxRQUFRLEVBQUUsTUFBTSxDQUFDLENBQUE7UUFFM0QsT0FBTyxPQUFPLENBQUE7SUFDaEIsQ0FBQztJQUVELEtBQUssQ0FBQyxRQUFRLENBQ1osRUFBVSxFQUNWLE1BQTRCO1FBRTVCLE1BQU0sV0FBVyxHQUFHLElBQUksQ0FBQyxjQUFjLENBQUMsY0FBYyxDQUNw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
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = void 0;
+var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
+var _slicedToArray2 = _interopRequireDefault(require("@babel/runtime/helpers/slicedToArray"));
+var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/asyncToGenerator"));
+var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/classCallCheck"));
+var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/createClass"));
+var _inherits2 = _interopRequireDefault(require("@babel/runtime/helpers/inherits"));
+var _possibleConstructorReturn2 = _interopRequireDefault(require("@babel/runtime/helpers/possibleConstructorReturn"));
+var _getPrototypeOf2 = _interopRequireDefault(require("@babel/runtime/helpers/getPrototypeOf"));
+var _medusa = require("@medusajs/medusa");
+var _utils = require("@medusajs/utils");
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = (0, _getPrototypeOf2["default"])(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = (0, _getPrototypeOf2["default"])(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return (0, _possibleConstructorReturn2["default"])(this, result); }; }
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+var RewardsService = /*#__PURE__*/function (_TransactionBaseServi) {
+  (0, _inherits2["default"])(RewardsService, _TransactionBaseServi);
+  var _super = _createSuper(RewardsService);
+  function RewardsService(container) {
+    var _this;
+    (0, _classCallCheck2["default"])(this, RewardsService);
+    _this = _super.call(this, container);
+    _this.rewardsRepository_ = container.rewardsRepository;
+    return _this;
+  }
+  (0, _createClass2["default"])(RewardsService, [{
+    key: "listAndCount",
+    value: function () {
+      var _listAndCount = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee(selector) {
+        var config,
+          rewardsRepo,
+          query,
+          _args = arguments;
+        return _regenerator["default"].wrap(function _callee$(_context) {
+          while (1) switch (_context.prev = _context.next) {
+            case 0:
+              config = _args.length > 1 && _args[1] !== undefined ? _args[1] : {
+                skip: 0,
+                take: 20,
+                relations: []
+              };
+              rewardsRepo = this.activeManager_.withRepository(this.rewardsRepository_);
+              query = (0, _medusa.buildQuery)(selector, config);
+              return _context.abrupt("return", rewardsRepo.findAndCount(query));
+            case 4:
+            case "end":
+              return _context.stop();
+          }
+        }, _callee, this);
+      }));
+      function listAndCount(_x) {
+        return _listAndCount.apply(this, arguments);
+      }
+      return listAndCount;
+    }()
+  }, {
+    key: "list",
+    value: function () {
+      var _list = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee2(selector) {
+        var config,
+          _yield$this$listAndCo,
+          _yield$this$listAndCo2,
+          rewards,
+          _args2 = arguments;
+        return _regenerator["default"].wrap(function _callee2$(_context2) {
+          while (1) switch (_context2.prev = _context2.next) {
+            case 0:
+              config = _args2.length > 1 && _args2[1] !== undefined ? _args2[1] : {
+                skip: 0,
+                take: 20,
+                relations: []
+              };
+              _context2.next = 3;
+              return this.listAndCount(selector, config);
+            case 3:
+              _yield$this$listAndCo = _context2.sent;
+              _yield$this$listAndCo2 = (0, _slicedToArray2["default"])(_yield$this$listAndCo, 1);
+              rewards = _yield$this$listAndCo2[0];
+              return _context2.abrupt("return", rewards);
+            case 7:
+            case "end":
+              return _context2.stop();
+          }
+        }, _callee2, this);
+      }));
+      function list(_x2) {
+        return _list.apply(this, arguments);
+      }
+      return list;
+    }()
+  }, {
+    key: "retrieve",
+    value: function () {
+      var _retrieve = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee3(id, config) {
+        var rewardsRepo, query, rewards;
+        return _regenerator["default"].wrap(function _callee3$(_context3) {
+          while (1) switch (_context3.prev = _context3.next) {
+            case 0:
+              rewardsRepo = this.activeManager_.withRepository(this.rewardsRepository_);
+              query = (0, _medusa.buildQuery)({
+                id: id
+              }, config);
+              _context3.next = 4;
+              return rewardsRepo.findOne(query);
+            case 4:
+              rewards = _context3.sent;
+              if (rewards) {
+                _context3.next = 7;
+                break;
+              }
+              throw new _utils.MedusaError(_utils.MedusaError.Types.NOT_FOUND, "Post was not found");
+            case 7:
+              return _context3.abrupt("return", rewards);
+            case 8:
+            case "end":
+              return _context3.stop();
+          }
+        }, _callee3, this);
+      }));
+      function retrieve(_x3, _x4) {
+        return _retrieve.apply(this, arguments);
+      }
+      return retrieve;
+    }()
+  }, {
+    key: "create",
+    value: function () {
+      var _create = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee5(data) {
+        var _this2 = this;
+        return _regenerator["default"].wrap(function _callee5$(_context5) {
+          while (1) switch (_context5.prev = _context5.next) {
+            case 0:
+              return _context5.abrupt("return", this.atomicPhase_( /*#__PURE__*/function () {
+                var _ref = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee4(manager) {
+                  var rewardsRepo, rewards, result;
+                  return _regenerator["default"].wrap(function _callee4$(_context4) {
+                    while (1) switch (_context4.prev = _context4.next) {
+                      case 0:
+                        rewardsRepo = manager.withRepository(_this2.rewardsRepository_);
+                        rewards = rewardsRepo.create();
+                        rewards.price = data.price;
+                        rewards.caption = data.caption;
+                        rewards.image = data.image;
+                        rewards.details = data.details;
+                        _context4.next = 8;
+                        return rewardsRepo.save(rewards);
+                      case 8:
+                        result = _context4.sent;
+                        return _context4.abrupt("return", result);
+                      case 10:
+                      case "end":
+                        return _context4.stop();
+                    }
+                  }, _callee4);
+                }));
+                return function (_x6) {
+                  return _ref.apply(this, arguments);
+                };
+              }()));
+            case 1:
+            case "end":
+              return _context5.stop();
+          }
+        }, _callee5, this);
+      }));
+      function create(_x5) {
+        return _create.apply(this, arguments);
+      }
+      return create;
+    }()
+  }, {
+    key: "update",
+    value: function () {
+      var _update = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee7(id, data) {
+        var _this3 = this;
+        return _regenerator["default"].wrap(function _callee7$(_context7) {
+          while (1) switch (_context7.prev = _context7.next) {
+            case 0:
+              _context7.next = 2;
+              return this.atomicPhase_( /*#__PURE__*/function () {
+                var _ref2 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee6(manager) {
+                  var rewardsRepo, rewards;
+                  return _regenerator["default"].wrap(function _callee6$(_context6) {
+                    while (1) switch (_context6.prev = _context6.next) {
+                      case 0:
+                        rewardsRepo = manager.withRepository(_this3.rewardsRepository_);
+                        _context6.next = 3;
+                        return _this3.retrieve(id);
+                      case 3:
+                        rewards = _context6.sent;
+                        Object.assign(rewards, data);
+                        _context6.next = 7;
+                        return rewardsRepo.save(rewards);
+                      case 7:
+                        return _context6.abrupt("return", _context6.sent);
+                      case 8:
+                      case "end":
+                        return _context6.stop();
+                    }
+                  }, _callee6);
+                }));
+                return function (_x9) {
+                  return _ref2.apply(this, arguments);
+                };
+              }());
+            case 2:
+              return _context7.abrupt("return", _context7.sent);
+            case 3:
+            case "end":
+              return _context7.stop();
+          }
+        }, _callee7, this);
+      }));
+      function update(_x7, _x8) {
+        return _update.apply(this, arguments);
+      }
+      return update;
+    }()
+  }, {
+    key: "delete",
+    value: function () {
+      var _delete2 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee9(id) {
+        var _this4 = this;
+        return _regenerator["default"].wrap(function _callee9$(_context9) {
+          while (1) switch (_context9.prev = _context9.next) {
+            case 0:
+              _context9.next = 2;
+              return this.atomicPhase_( /*#__PURE__*/function () {
+                var _ref3 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee8(manager) {
+                  var rewardsRepo, rewards;
+                  return _regenerator["default"].wrap(function _callee8$(_context8) {
+                    while (1) switch (_context8.prev = _context8.next) {
+                      case 0:
+                        rewardsRepo = manager.withRepository(_this4.rewardsRepository_);
+                        _context8.next = 3;
+                        return _this4.retrieve(id);
+                      case 3:
+                        rewards = _context8.sent;
+                        _context8.next = 6;
+                        return rewardsRepo.remove([rewards]);
+                      case 6:
+                      case "end":
+                        return _context8.stop();
+                    }
+                  }, _callee8);
+                }));
+                return function (_x11) {
+                  return _ref3.apply(this, arguments);
+                };
+              }());
+            case 2:
+              return _context9.abrupt("return", _context9.sent);
+            case 3:
+            case "end":
+              return _context9.stop();
+          }
+        }, _callee9, this);
+      }));
+      function _delete(_x10) {
+        return _delete2.apply(this, arguments);
+      }
+      return _delete;
+    }()
+  }]);
+  return RewardsService;
+}(_medusa.TransactionBaseService);
+var _default = exports["default"] = RewardsService;

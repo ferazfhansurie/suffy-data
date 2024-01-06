@@ -1,29 +1,61 @@
 "use strict";
-// src/api/update-customer-loyalty-points.js
-Object.defineProperty(exports, "__esModule", { value: true });
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 exports.POST = void 0;
-const POST = async (req, res) => {
-    try {
-        const { customerId, pointsToDeduct, operation } = req.body;
-        const customerService = req.scope.resolve("customerService");
-        const customer = await customerService.retrieve(customerId);
-        if (!customer) {
-            return res.status(404).json({ error: 'Customer not found' });
-        }
-        if (operation == "add") {
+var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
+var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/asyncToGenerator"));
+// src/api/update-customer-loyalty-points.js
+
+var POST = exports.POST = /*#__PURE__*/function () {
+  var _ref = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee(req, res) {
+    var _req$body, customerId, pointsToDeduct, operation, customerService, customer, updatedLoyaltyPoints, _updatedLoyaltyPoints;
+    return _regenerator["default"].wrap(function _callee$(_context) {
+      while (1) switch (_context.prev = _context.next) {
+        case 0:
+          _context.prev = 0;
+          _req$body = req.body, customerId = _req$body.customerId, pointsToDeduct = _req$body.pointsToDeduct, operation = _req$body.operation;
+          customerService = req.scope.resolve("customerService");
+          _context.next = 5;
+          return customerService.retrieve(customerId);
+        case 5:
+          customer = _context.sent;
+          if (customer) {
+            _context.next = 8;
+            break;
+          }
+          return _context.abrupt("return", res.status(404).json({
+            error: 'Customer not found'
+          }));
+        case 8:
+          if (operation == "add") {
             // Update customer's LoyaltyPoints
-            const updatedLoyaltyPoints = customer.pendingFunds + pointsToDeduct; // Ensure it doesn't go below 0
+            updatedLoyaltyPoints = customer.pendingFunds + pointsToDeduct; // Ensure it doesn't go below 0
             //await customerService.update(customerId, { pendingFunds: updatedLoyaltyPoints });
-        }
-        else if (operation == "subtract") {
-            const updatedLoyaltyPoints = Math.max(customer.pendingFunds - pointsToDeduct, 0); // Ensure it doesn't go below 0
+          } else if (operation == "subtract") {
+            _updatedLoyaltyPoints = Math.max(customer.pendingFunds - pointsToDeduct, 0); // Ensure it doesn't go below 0
             //await customerService.update(customerId, { pendingFunds: updatedLoyaltyPoints });
-        }
-        res.status(200).json({ message: 'Customer updated successfully' });
-    }
-    catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-};
-exports.POST = POST;
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicm91dGUuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi8uLi8uLi9zcmMvYXBpL3N0b3JlL3VwZGF0ZS1wZW5kaW5nLWZ1bmRzL3JvdXRlLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7QUFBQSw0Q0FBNEM7OztBQUtyQyxNQUFNLElBQUksR0FBRyxLQUFLLEVBQUUsR0FBa0IsRUFBRSxHQUFtQixFQUFFLEVBQUU7SUFDcEUsSUFBSTtRQUNGLE1BQU0sRUFBRSxVQUFVLEVBQUUsY0FBYyxFQUFFLFNBQVMsRUFBRSxHQUFHLEdBQUcsQ0FBQyxJQUFJLENBQUM7UUFDM0QsTUFBTSxlQUFlLEdBQW9CLEdBQUcsQ0FBQyxLQUFLLENBQUMsT0FBTyxDQUFDLGlCQUFpQixDQUFDLENBQUM7UUFFOUUsTUFBTSxRQUFRLEdBQUcsTUFBTSxlQUFlLENBQUMsUUFBUSxDQUFDLFVBQVUsQ0FBQyxDQUFDO1FBQzVELElBQUksQ0FBQyxRQUFRLEVBQUU7WUFDYixPQUFPLEdBQUcsQ0FBQyxNQUFNLENBQUMsR0FBRyxDQUFDLENBQUMsSUFBSSxDQUFDLEVBQUUsS0FBSyxFQUFFLG9CQUFvQixFQUFFLENBQUMsQ0FBQztTQUM5RDtRQUVELElBQUcsU0FBUyxJQUFJLEtBQUssRUFBQztZQUN0QixrQ0FBa0M7WUFDbEMsTUFBTSxvQkFBb0IsR0FBRyxRQUFRLENBQUMsWUFBWSxHQUFHLGNBQWMsQ0FBQyxDQUFDLCtCQUErQjtZQUNwRyxtRkFBbUY7U0FDbEY7YUFBTSxJQUFJLFNBQVMsSUFBSSxVQUFVLEVBQUU7WUFDbEMsTUFBTSxvQkFBb0IsR0FBRyxJQUFJLENBQUMsR0FBRyxDQUFDLFFBQVEsQ0FBQyxZQUFZLEdBQUcsY0FBYyxFQUFFLENBQUMsQ0FBQyxDQUFDLENBQUMsK0JBQStCO1lBQ2pILG1GQUFtRjtTQUNwRjtRQUNELEdBQUcsQ0FBQyxNQUFNLENBQUMsR0FBRyxDQUFDLENBQUMsSUFBSSxDQUFDLEVBQUUsT0FBTyxFQUFFLCtCQUErQixFQUFFLENBQUMsQ0FBQztLQUNwRTtJQUFDLE9BQU8sS0FBSyxFQUFFO1FBQ2QsR0FBRyxDQUFDLE1BQU0sQ0FBQyxHQUFHLENBQUMsQ0FBQyxJQUFJLENBQUMsRUFBRSxLQUFLLEVBQUUsS0FBSyxDQUFDLE9BQU8sRUFBRSxDQUFDLENBQUM7S0FDaEQ7QUFDSCxDQUFDLENBQUM7QUF0QlcsUUFBQSxJQUFJLFFBc0JmIn0=
+          }
+          res.status(200).json({
+            message: 'Customer updated successfully'
+          });
+          _context.next = 15;
+          break;
+        case 12:
+          _context.prev = 12;
+          _context.t0 = _context["catch"](0);
+          res.status(500).json({
+            error: _context.t0.message
+          });
+        case 15:
+        case "end":
+          return _context.stop();
+      }
+    }, _callee, null, [[0, 12]]);
+  }));
+  return function POST(_x, _x2) {
+    return _ref.apply(this, arguments);
+  };
+}();

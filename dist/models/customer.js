@@ -1,67 +1,112 @@
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-Object.defineProperty(exports, "__esModule", { value: true });
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 exports.Customer = void 0;
-const typeorm_1 = require("typeorm");
-const withdrawal_1 = require("./withdrawal");
-const redeem_1 = require("./redeem");
-const medusa_1 = require("@medusajs/medusa");
-let Customer = class Customer extends medusa_1.Customer {
-};
-__decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", Number)
-], Customer.prototype, "loyaltyPoints", void 0);
-__decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
-], Customer.prototype, "referralCode", void 0);
-__decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
-], Customer.prototype, "referralInput", void 0);
-__decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
-], Customer.prototype, "referrer", void 0);
-__decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", Number)
-], Customer.prototype, "totalOrders", void 0);
-__decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", Number)
-], Customer.prototype, "recruits", void 0);
-__decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", Number)
-], Customer.prototype, "totalBulkPurchase", void 0);
-__decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", Number)
-], Customer.prototype, "totalProfitShare", void 0);
-__decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", Number)
-], Customer.prototype, "pendingFunds", void 0);
-__decorate([
-    (0, typeorm_1.OneToMany)(() => withdrawal_1.Withdrawal, (withdrawal) => withdrawal.customer),
-    __metadata("design:type", Array)
-], Customer.prototype, "withdrawals", void 0);
-__decorate([
-    (0, typeorm_1.OneToMany)(() => redeem_1.Redeem, (redeem) => redeem.customer),
-    __metadata("design:type", Array)
-], Customer.prototype, "redeem", void 0);
-Customer = __decorate([
-    (0, typeorm_1.Entity)()
-], Customer);
-exports.Customer = Customer;
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiY3VzdG9tZXIuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi9zcmMvbW9kZWxzL2N1c3RvbWVyLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7OztBQUFBLHFDQUtrQjtBQUVoQiw2Q0FBeUM7QUFDM0MscUNBQWlDO0FBQ2pDLDZDQUd5QjtBQUdsQixJQUFNLFFBQVEsR0FBZCxNQUFNLFFBQVMsU0FBUSxpQkFBYztDQXlCM0MsQ0FBQTtBQXhCQTtJQUFDLElBQUEsZ0JBQU0sR0FBRTs7K0NBQ1k7QUFDckI7SUFBQyxJQUFBLGdCQUFNLEdBQUU7OEJBQ0ssTUFBTTs4Q0FBQTtBQUNwQjtJQUFDLElBQUEsZ0JBQU0sR0FBRTs4QkFDTSxNQUFNOytDQUFBO0FBQ3JCO0lBQUMsSUFBQSxnQkFBTSxHQUFFOzhCQUNDLE1BQU07MENBQUE7QUFDaEI7SUFBQyxJQUFBLGdCQUFNLEdBQUU7OzZDQUNVO0FBQ25CO0lBQUMsSUFBQSxnQkFBTSxHQUFFOzswQ0FDTztBQUNoQjtJQUFDLElBQUEsZ0JBQU0sR0FBRTs7bURBQ2dCO0FBQ3pCO0lBQUMsSUFBQSxnQkFBTSxHQUFFOztrREFDZTtBQUN4QjtJQUFDLElBQUEsZ0JBQU0sR0FBRTs7OENBQ1c7QUFFcEI7SUFBQyxJQUFBLG1CQUFTLEVBQUMsR0FBRyxFQUFFLENBQUMsdUJBQVUsRUFBRSxDQUFDLFVBQVUsRUFBRSxFQUFFLENBQUMsVUFBVSxDQUFDLFFBQVEsQ0FBQzs7NkNBQ3ZDO0FBRXpCO0lBQUMsSUFBQSxtQkFBUyxFQUFDLEdBQUcsRUFBRSxDQUFDLGVBQU0sRUFBRSxDQUFDLE1BQU0sRUFBRSxFQUFFLENBQUMsTUFBTSxDQUFDLFFBQVEsQ0FBQzs7d0NBQ3JDO0FBeEJMLFFBQVE7SUFEcEIsSUFBQSxnQkFBTSxHQUFFO0dBQ0ksUUFBUSxDQXlCcEI7QUF6QlksNEJBQVEifQ==
+var _initializerDefineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/initializerDefineProperty"));
+var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/createClass"));
+var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/classCallCheck"));
+var _assertThisInitialized2 = _interopRequireDefault(require("@babel/runtime/helpers/assertThisInitialized"));
+var _inherits2 = _interopRequireDefault(require("@babel/runtime/helpers/inherits"));
+var _possibleConstructorReturn2 = _interopRequireDefault(require("@babel/runtime/helpers/possibleConstructorReturn"));
+var _getPrototypeOf2 = _interopRequireDefault(require("@babel/runtime/helpers/getPrototypeOf"));
+var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
+var _applyDecoratedDescriptor2 = _interopRequireDefault(require("@babel/runtime/helpers/applyDecoratedDescriptor"));
+var _initializerWarningHelper2 = _interopRequireDefault(require("@babel/runtime/helpers/initializerWarningHelper"));
+var _typeorm = require("typeorm");
+var _withdrawal = require("./withdrawal");
+var _redeem = require("./redeem");
+var _medusa = require("@medusajs/medusa");
+var _dec, _dec2, _dec3, _dec4, _dec5, _dec6, _dec7, _dec8, _dec9, _dec10, _dec11, _dec12, _dec13, _dec14, _dec15, _dec16, _dec17, _dec18, _dec19, _dec20, _dec21, _dec22, _dec23, _class, _class2, _descriptor, _descriptor2, _descriptor3, _descriptor4, _descriptor5, _descriptor6, _descriptor7, _descriptor8, _descriptor9, _descriptor10, _descriptor11;
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = (0, _getPrototypeOf2["default"])(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = (0, _getPrototypeOf2["default"])(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return (0, _possibleConstructorReturn2["default"])(this, result); }; }
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+var Customer = exports.Customer = (_dec = (0, _typeorm.Entity)(), _dec2 = (0, _typeorm.Column)(), _dec3 = Reflect.metadata("design:type", Number), _dec4 = (0, _typeorm.Column)(), _dec5 = Reflect.metadata("design:type", typeof String === "undefined" ? Object : String), _dec6 = (0, _typeorm.Column)(), _dec7 = Reflect.metadata("design:type", typeof String === "undefined" ? Object : String), _dec8 = (0, _typeorm.Column)(), _dec9 = Reflect.metadata("design:type", typeof String === "undefined" ? Object : String), _dec10 = (0, _typeorm.Column)(), _dec11 = Reflect.metadata("design:type", Number), _dec12 = (0, _typeorm.Column)(), _dec13 = Reflect.metadata("design:type", Number), _dec14 = (0, _typeorm.Column)(), _dec15 = Reflect.metadata("design:type", Number), _dec16 = (0, _typeorm.Column)(), _dec17 = Reflect.metadata("design:type", Number), _dec18 = (0, _typeorm.Column)(), _dec19 = Reflect.metadata("design:type", Number), _dec20 = (0, _typeorm.OneToMany)(function () {
+  return _withdrawal.Withdrawal;
+}, function (withdrawal) {
+  return withdrawal.customer;
+}), _dec21 = Reflect.metadata("design:type", Array), _dec22 = (0, _typeorm.OneToMany)(function () {
+  return _redeem.Redeem;
+}, function (redeem) {
+  return redeem.customer;
+}), _dec23 = Reflect.metadata("design:type", Array), _dec(_class = (_class2 = /*#__PURE__*/function (_MedusaCustomer) {
+  (0, _inherits2["default"])(Customer, _MedusaCustomer);
+  var _super = _createSuper(Customer);
+  function Customer() {
+    var _this;
+    (0, _classCallCheck2["default"])(this, Customer);
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+    _this = _super.call.apply(_super, [this].concat(args));
+    (0, _initializerDefineProperty2["default"])((0, _assertThisInitialized2["default"])(_this), "loyaltyPoints", _descriptor, (0, _assertThisInitialized2["default"])(_this));
+    (0, _initializerDefineProperty2["default"])((0, _assertThisInitialized2["default"])(_this), "referralCode", _descriptor2, (0, _assertThisInitialized2["default"])(_this));
+    (0, _initializerDefineProperty2["default"])((0, _assertThisInitialized2["default"])(_this), "referralInput", _descriptor3, (0, _assertThisInitialized2["default"])(_this));
+    (0, _initializerDefineProperty2["default"])((0, _assertThisInitialized2["default"])(_this), "referrer", _descriptor4, (0, _assertThisInitialized2["default"])(_this));
+    (0, _initializerDefineProperty2["default"])((0, _assertThisInitialized2["default"])(_this), "totalOrders", _descriptor5, (0, _assertThisInitialized2["default"])(_this));
+    (0, _initializerDefineProperty2["default"])((0, _assertThisInitialized2["default"])(_this), "recruits", _descriptor6, (0, _assertThisInitialized2["default"])(_this));
+    (0, _initializerDefineProperty2["default"])((0, _assertThisInitialized2["default"])(_this), "totalBulkPurchase", _descriptor7, (0, _assertThisInitialized2["default"])(_this));
+    (0, _initializerDefineProperty2["default"])((0, _assertThisInitialized2["default"])(_this), "totalProfitShare", _descriptor8, (0, _assertThisInitialized2["default"])(_this));
+    (0, _initializerDefineProperty2["default"])((0, _assertThisInitialized2["default"])(_this), "pendingFunds", _descriptor9, (0, _assertThisInitialized2["default"])(_this));
+    (0, _initializerDefineProperty2["default"])((0, _assertThisInitialized2["default"])(_this), "withdrawals", _descriptor10, (0, _assertThisInitialized2["default"])(_this));
+    (0, _initializerDefineProperty2["default"])((0, _assertThisInitialized2["default"])(_this), "redeem", _descriptor11, (0, _assertThisInitialized2["default"])(_this));
+    return _this;
+  }
+  return (0, _createClass2["default"])(Customer);
+}(_medusa.Customer), (_descriptor = (0, _applyDecoratedDescriptor2["default"])(_class2.prototype, "loyaltyPoints", [_dec2, _dec3], {
+  configurable: true,
+  enumerable: true,
+  writable: true,
+  initializer: null
+}), _descriptor2 = (0, _applyDecoratedDescriptor2["default"])(_class2.prototype, "referralCode", [_dec4, _dec5], {
+  configurable: true,
+  enumerable: true,
+  writable: true,
+  initializer: null
+}), _descriptor3 = (0, _applyDecoratedDescriptor2["default"])(_class2.prototype, "referralInput", [_dec6, _dec7], {
+  configurable: true,
+  enumerable: true,
+  writable: true,
+  initializer: null
+}), _descriptor4 = (0, _applyDecoratedDescriptor2["default"])(_class2.prototype, "referrer", [_dec8, _dec9], {
+  configurable: true,
+  enumerable: true,
+  writable: true,
+  initializer: null
+}), _descriptor5 = (0, _applyDecoratedDescriptor2["default"])(_class2.prototype, "totalOrders", [_dec10, _dec11], {
+  configurable: true,
+  enumerable: true,
+  writable: true,
+  initializer: null
+}), _descriptor6 = (0, _applyDecoratedDescriptor2["default"])(_class2.prototype, "recruits", [_dec12, _dec13], {
+  configurable: true,
+  enumerable: true,
+  writable: true,
+  initializer: null
+}), _descriptor7 = (0, _applyDecoratedDescriptor2["default"])(_class2.prototype, "totalBulkPurchase", [_dec14, _dec15], {
+  configurable: true,
+  enumerable: true,
+  writable: true,
+  initializer: null
+}), _descriptor8 = (0, _applyDecoratedDescriptor2["default"])(_class2.prototype, "totalProfitShare", [_dec16, _dec17], {
+  configurable: true,
+  enumerable: true,
+  writable: true,
+  initializer: null
+}), _descriptor9 = (0, _applyDecoratedDescriptor2["default"])(_class2.prototype, "pendingFunds", [_dec18, _dec19], {
+  configurable: true,
+  enumerable: true,
+  writable: true,
+  initializer: null
+}), _descriptor10 = (0, _applyDecoratedDescriptor2["default"])(_class2.prototype, "withdrawals", [_dec20, _dec21], {
+  configurable: true,
+  enumerable: true,
+  writable: true,
+  initializer: null
+}), _descriptor11 = (0, _applyDecoratedDescriptor2["default"])(_class2.prototype, "redeem", [_dec22, _dec23], {
+  configurable: true,
+  enumerable: true,
+  writable: true,
+  initializer: null
+})), _class2)) || _class);

@@ -1,22 +1,50 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 exports.GET = void 0;
+var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
+var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/asyncToGenerator"));
 // Example route to list withdrawals for the logged-in user
-const GET = async (req, res) => {
-    const redeemService = req.scope.resolve("redeemService");
-    const loggedInUserId = req.user.customer_id; // Assuming you have a way to get the logged-in user's ID
-    const config = {
-        skip: 0,
-        take: 20,
-        relations: ["rewards"] // Include any relations if needed
-    };
-    try {
-        const redeems = await redeemService.listById({}, config, loggedInUserId);
-        res.status(200).json({ redeems });
-    }
-    catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-};
-exports.GET = GET;
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicm91dGUuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi8uLi8uLi8uLi9zcmMvYXBpL3N0b3JlL3JlZGVlbXMvYnlJZC9yb3V0ZS50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7QUFNQSwyREFBMkQ7QUFDcEQsTUFBTSxHQUFHLEdBQUcsS0FBSyxFQUFFLEdBQWtCLEVBQUUsR0FBbUIsRUFBRSxFQUFFO0lBQ2pFLE1BQU0sYUFBYSxHQUFrQixHQUFHLENBQUMsS0FBSyxDQUFDLE9BQU8sQ0FBQyxlQUFlLENBQUMsQ0FBQztJQUN4RSxNQUFNLGNBQWMsR0FBRyxHQUFHLENBQUMsSUFBSSxDQUFDLFdBQVcsQ0FBQyxDQUFDLHlEQUF5RDtJQUN0RyxNQUFNLE1BQU0sR0FBRztRQUNiLElBQUksRUFBRSxDQUFDO1FBQ1AsSUFBSSxFQUFFLEVBQUU7UUFDUixTQUFTLEVBQUUsQ0FBQyxTQUFTLENBQUMsQ0FBQyxrQ0FBa0M7S0FDMUQsQ0FBQztJQUNGLElBQUk7UUFDRixNQUFNLE9BQU8sR0FBRyxNQUFNLGFBQWEsQ0FBQyxRQUFRLENBQUMsRUFBRSxFQUFFLE1BQU0sRUFBRSxjQUFjLENBQUMsQ0FBQztRQUN6RSxHQUFHLENBQUMsTUFBTSxDQUFDLEdBQUcsQ0FBQyxDQUFDLElBQUksQ0FBQyxFQUFFLE9BQU8sRUFBRSxDQUFDLENBQUM7S0FDbkM7SUFBQyxPQUFPLEtBQUssRUFBRTtRQUNkLEdBQUcsQ0FBQyxNQUFNLENBQUMsR0FBRyxDQUFDLENBQUMsSUFBSSxDQUFDLEVBQUUsS0FBSyxFQUFFLEtBQUssQ0FBQyxPQUFPLEVBQUUsQ0FBQyxDQUFDO0tBQ2hEO0FBQ0gsQ0FBQyxDQUFDO0FBZFMsUUFBQSxHQUFHLE9BY1oifQ==
+var GET = exports.GET = /*#__PURE__*/function () {
+  var _ref = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee(req, res) {
+    var redeemService, loggedInUserId, config, redeems;
+    return _regenerator["default"].wrap(function _callee$(_context) {
+      while (1) switch (_context.prev = _context.next) {
+        case 0:
+          redeemService = req.scope.resolve("redeemService");
+          loggedInUserId = req.user.customer_id; // Assuming you have a way to get the logged-in user's ID
+          config = {
+            skip: 0,
+            take: 20,
+            // You can adjust pagination settings here
+            relations: ["rewards"] // Include any relations if needed
+          };
+          _context.prev = 3;
+          _context.next = 6;
+          return redeemService.listById({}, config, loggedInUserId);
+        case 6:
+          redeems = _context.sent;
+          res.status(200).json({
+            redeems: redeems
+          });
+          _context.next = 13;
+          break;
+        case 10:
+          _context.prev = 10;
+          _context.t0 = _context["catch"](3);
+          res.status(500).json({
+            error: _context.t0.message
+          });
+        case 13:
+        case "end":
+          return _context.stop();
+      }
+    }, _callee, null, [[3, 10]]);
+  }));
+  return function GET(_x, _x2) {
+    return _ref.apply(this, arguments);
+  };
+}();

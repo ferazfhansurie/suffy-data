@@ -1,21 +1,58 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 exports.CustomerExtend1702305687589 = void 0;
-class CustomerExtend1702305687589 {
-    async up(queryRunner) {
-        await queryRunner.query("ALTER TABLE \"customer\"" +
-            " ADD COLUMN \"loyaltyPoints\" int," +
-            " ADD COLUMN \"referralCode\" varchar," +
-            " ADD COLUMN \"referralInput\" varchar," +
-            " ADD COLUMN \"referrer\" varchar");
-    }
-    async down(queryRunner) {
-        await queryRunner.query("ALTER TABLE \"customer\"" +
-            " DROP COLUMN \"loyaltyPoints\"," +
-            " DROP COLUMN \"referralCode\"," +
-            " DROP COLUMN \"referralInput\"," +
-            " DROP COLUMN \"referrer\"");
-    }
-}
-exports.CustomerExtend1702305687589 = CustomerExtend1702305687589;
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMTcwMjMwNTY4NzU4OS1DdXN0b21lckV4dGVuZC5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy9taWdyYXRpb25zLzE3MDIzMDU2ODc1ODktQ3VzdG9tZXJFeHRlbmQudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7O0FBRUEsTUFBYSwyQkFBMkI7SUFFN0IsS0FBSyxDQUFDLEVBQUUsQ0FBQyxXQUF3QjtRQUNwQyxNQUFNLFdBQVcsQ0FBQyxLQUFLLENBQ3JCLDBCQUEwQjtZQUMxQixvQ0FBb0M7WUFDcEMsdUNBQXVDO1lBQ3ZDLHdDQUF3QztZQUN4QyxrQ0FBa0MsQ0FDbkMsQ0FBQTtJQUNILENBQUM7SUFFTSxLQUFLLENBQUMsSUFBSSxDQUFDLFdBQXdCO1FBQ3hDLE1BQU0sV0FBVyxDQUFDLEtBQUssQ0FDckIsMEJBQTBCO1lBQzFCLGlDQUFpQztZQUNqQyxnQ0FBZ0M7WUFDaEMsaUNBQWlDO1lBQ2pDLDJCQUEyQixDQUM1QixDQUFBO0lBQ0gsQ0FBQztDQUVOO0FBdEJELGtFQXNCQyJ9
+var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
+var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/asyncToGenerator"));
+var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/classCallCheck"));
+var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/createClass"));
+var CustomerExtend1702305687589 = exports.CustomerExtend1702305687589 = /*#__PURE__*/function () {
+  function CustomerExtend1702305687589() {
+    (0, _classCallCheck2["default"])(this, CustomerExtend1702305687589);
+  }
+  (0, _createClass2["default"])(CustomerExtend1702305687589, [{
+    key: "up",
+    value: function () {
+      var _up = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee(queryRunner) {
+        return _regenerator["default"].wrap(function _callee$(_context) {
+          while (1) switch (_context.prev = _context.next) {
+            case 0:
+              _context.next = 2;
+              return queryRunner.query("ALTER TABLE \"customer\"" + " ADD COLUMN \"loyaltyPoints\" int," + " ADD COLUMN \"referralCode\" varchar," + " ADD COLUMN \"referralInput\" varchar," + " ADD COLUMN \"referrer\" varchar");
+            case 2:
+            case "end":
+              return _context.stop();
+          }
+        }, _callee);
+      }));
+      function up(_x) {
+        return _up.apply(this, arguments);
+      }
+      return up;
+    }()
+  }, {
+    key: "down",
+    value: function () {
+      var _down = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee2(queryRunner) {
+        return _regenerator["default"].wrap(function _callee2$(_context2) {
+          while (1) switch (_context2.prev = _context2.next) {
+            case 0:
+              _context2.next = 2;
+              return queryRunner.query("ALTER TABLE \"customer\"" + " DROP COLUMN \"loyaltyPoints\"," + " DROP COLUMN \"referralCode\"," + " DROP COLUMN \"referralInput\"," + " DROP COLUMN \"referrer\"");
+            case 2:
+            case "end":
+              return _context2.stop();
+          }
+        }, _callee2);
+      }));
+      function down(_x2) {
+        return _down.apply(this, arguments);
+      }
+      return down;
+    }()
+  }]);
+  return CustomerExtend1702305687589;
+}();

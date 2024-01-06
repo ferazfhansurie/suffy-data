@@ -1,20 +1,52 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 exports.GET = void 0;
+var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
+var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/asyncToGenerator"));
 // Example route to list withdrawals for the logged-in user
-const GET = async (req, res) => {
-    const withdrawalService = req.scope.resolve("withdrawalService");
-    const loggedInUserId = req.user.customer_id; // Assuming you have a way to get the logged-in user's ID
-    if (!loggedInUserId) {
-        return res.status(401).json({ error: 'Unauthorized' });
-    }
-    try {
-        const withdrawals = await withdrawalService.listByCustomerPending({}, {}, loggedInUserId);
-        res.status(200).json({ withdrawals });
-    }
-    catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-};
-exports.GET = GET;
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicm91dGUuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi8uLi8uLi8uLi8uLi9zcmMvYXBpL3N0b3JlL3dpdGhkcmF3YWxzL2N1c3RvbWVyL3BlbmRpbmcvcm91dGUudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7O0FBTUEsMkRBQTJEO0FBQ3BELE1BQU0sR0FBRyxHQUFHLEtBQUssRUFBRSxHQUFrQixFQUFFLEdBQW1CLEVBQUUsRUFBRTtJQUNqRSxNQUFNLGlCQUFpQixHQUFzQixHQUFHLENBQUMsS0FBSyxDQUFDLE9BQU8sQ0FBQyxtQkFBbUIsQ0FBQyxDQUFDO0lBQ3BGLE1BQU0sY0FBYyxHQUFHLEdBQUcsQ0FBQyxJQUFJLENBQUMsV0FBVyxDQUFDLENBQUMseURBQXlEO0lBQ3RHLElBQUksQ0FBQyxjQUFjLEVBQUU7UUFDakIsT0FBTyxHQUFHLENBQUMsTUFBTSxDQUFDLEdBQUcsQ0FBQyxDQUFDLElBQUksQ0FBQyxFQUFFLEtBQUssRUFBRSxjQUFjLEVBQUUsQ0FBQyxDQUFDO0tBQ3hEO0lBQ0gsSUFBSTtRQUNGLE1BQU0sV0FBVyxHQUFHLE1BQU0saUJBQWlCLENBQUMscUJBQXFCLENBQUMsRUFBRSxFQUFFLEVBQUUsRUFBRSxjQUFjLENBQUMsQ0FBQztRQUMxRixHQUFHLENBQUMsTUFBTSxDQUFDLEdBQUcsQ0FBQyxDQUFDLElBQUksQ0FBQyxFQUFFLFdBQVcsRUFBRSxDQUFDLENBQUM7S0FDdkM7SUFBQyxPQUFPLEtBQUssRUFBRTtRQUNkLEdBQUcsQ0FBQyxNQUFNLENBQUMsR0FBRyxDQUFDLENBQUMsSUFBSSxDQUFDLEVBQUUsS0FBSyxFQUFFLEtBQUssQ0FBQyxPQUFPLEVBQUUsQ0FBQyxDQUFDO0tBQ2hEO0FBQ0gsQ0FBQyxDQUFDO0FBWlMsUUFBQSxHQUFHLE9BWVoifQ==
+var GET = exports.GET = /*#__PURE__*/function () {
+  var _ref = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee(req, res) {
+    var withdrawalService, loggedInUserId, withdrawals;
+    return _regenerator["default"].wrap(function _callee$(_context) {
+      while (1) switch (_context.prev = _context.next) {
+        case 0:
+          withdrawalService = req.scope.resolve("withdrawalService");
+          loggedInUserId = req.user.customer_id; // Assuming you have a way to get the logged-in user's ID
+          if (loggedInUserId) {
+            _context.next = 4;
+            break;
+          }
+          return _context.abrupt("return", res.status(401).json({
+            error: 'Unauthorized'
+          }));
+        case 4:
+          _context.prev = 4;
+          _context.next = 7;
+          return withdrawalService.listByCustomerPending({}, {}, loggedInUserId);
+        case 7:
+          withdrawals = _context.sent;
+          res.status(200).json({
+            withdrawals: withdrawals
+          });
+          _context.next = 14;
+          break;
+        case 11:
+          _context.prev = 11;
+          _context.t0 = _context["catch"](4);
+          res.status(500).json({
+            error: _context.t0.message
+          });
+        case 14:
+        case "end":
+          return _context.stop();
+      }
+    }, _callee, null, [[4, 11]]);
+  }));
+  return function GET(_x, _x2) {
+    return _ref.apply(this, arguments);
+  };
+}();

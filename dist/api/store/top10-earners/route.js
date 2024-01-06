@@ -1,26 +1,50 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 exports.GET = void 0;
-const medusa_1 = require("@medusajs/medusa");
-const GET = async (req, res) => {
-    try {
-        const customerService = req.scope.resolve("customerService");
-        const manager = req.scope.resolve("manager");
-        const customerRepository = manager.getRepository(medusa_1.Customer);
-        // Fetch all customers
-        const customers = await customerRepository.find({
-            relations: ["billing_address"],
-        });
-        // Sort customers by 'loyaltyPoints' in descending order
-        const sortedCustomers = customers.sort((a, b) => {
+var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
+var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/asyncToGenerator"));
+var _medusa = require("@medusajs/medusa");
+var GET = exports.GET = /*#__PURE__*/function () {
+  var _ref = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee(req, res) {
+    var customerService, manager, customerRepository, customers, sortedCustomers, topCustomers;
+    return _regenerator["default"].wrap(function _callee$(_context) {
+      while (1) switch (_context.prev = _context.next) {
+        case 0:
+          _context.prev = 0;
+          customerService = req.scope.resolve("customerService");
+          manager = req.scope.resolve("manager");
+          customerRepository = manager.getRepository(_medusa.Customer); // Fetch all customers
+          _context.next = 6;
+          return customerRepository.find({
+            relations: ["billing_address"]
+          });
+        case 6:
+          customers = _context.sent;
+          // Sort customers by 'loyaltyPoints' in descending order
+          sortedCustomers = customers.sort(function (a, b) {
             return b.loyaltyPoints - a.loyaltyPoints; // For descending order
-        });
-        const topCustomers = sortedCustomers.slice(0, 10);
-        res.status(200).json(topCustomers);
-    }
-    catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-};
-exports.GET = GET;
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicm91dGUuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi8uLi8uLi9zcmMvYXBpL3N0b3JlL3RvcDEwLWVhcm5lcnMvcm91dGUudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7O0FBR0EsNkNBQTRDO0FBSXJDLE1BQU0sR0FBRyxHQUFHLEtBQUssRUFBRSxHQUFrQixFQUFFLEdBQW1CLEVBQUUsRUFBRTtJQUNuRSxJQUFJO1FBQ0YsTUFBTSxlQUFlLEdBQW9CLEdBQUcsQ0FBQyxLQUFLLENBQUMsT0FBTyxDQUFDLGlCQUFpQixDQUFDLENBQUM7UUFDOUUsTUFBTSxPQUFPLEdBQWtCLEdBQUcsQ0FBQyxLQUFLLENBQUMsT0FBTyxDQUFDLFNBQVMsQ0FBQyxDQUFDO1FBQzVELE1BQU0sa0JBQWtCLEdBQUcsT0FBTyxDQUFDLGFBQWEsQ0FBQyxpQkFBUSxDQUFDLENBQUM7UUFFM0Qsc0JBQXNCO1FBQ3RCLE1BQU0sU0FBUyxHQUFHLE1BQU0sa0JBQWtCLENBQUMsSUFBSSxDQUFDO1lBQzlDLFNBQVMsRUFBRSxDQUFDLGlCQUFpQixDQUFDO1NBQy9CLENBQUMsQ0FBQztRQUVILHdEQUF3RDtRQUN4RCxNQUFNLGVBQWUsR0FBRyxTQUFTLENBQUMsSUFBSSxDQUFDLENBQUMsQ0FBQyxFQUFFLENBQUMsRUFBRSxFQUFFO1lBQzlDLE9BQU8sQ0FBQyxDQUFDLGFBQWEsR0FBRyxDQUFDLENBQUMsYUFBYSxDQUFDLENBQUMsdUJBQXVCO1FBQ25FLENBQUMsQ0FBQyxDQUFDO1FBQ0gsTUFBTSxZQUFZLEdBQUcsZUFBZSxDQUFDLEtBQUssQ0FBQyxDQUFDLEVBQUUsRUFBRSxDQUFDLENBQUM7UUFFbEQsR0FBRyxDQUFDLE1BQU0sQ0FBQyxHQUFHLENBQUMsQ0FBQyxJQUFJLENBQUMsWUFBWSxDQUFDLENBQUM7S0FDcEM7SUFBQyxPQUFPLEtBQUssRUFBRTtRQUNkLEdBQUcsQ0FBQyxNQUFNLENBQUMsR0FBRyxDQUFDLENBQUMsSUFBSSxDQUFDLEVBQUUsS0FBSyxFQUFFLEtBQUssQ0FBQyxPQUFPLEVBQUUsQ0FBQyxDQUFDO0tBQ2hEO0FBQ0gsQ0FBQyxDQUFDO0FBckJXLFFBQUEsR0FBRyxPQXFCZCJ9
+          });
+          topCustomers = sortedCustomers.slice(0, 10);
+          res.status(200).json(topCustomers);
+          _context.next = 15;
+          break;
+        case 12:
+          _context.prev = 12;
+          _context.t0 = _context["catch"](0);
+          res.status(500).json({
+            error: _context.t0.message
+          });
+        case 15:
+        case "end":
+          return _context.stop();
+      }
+    }, _callee, null, [[0, 12]]);
+  }));
+  return function GET(_x, _x2) {
+    return _ref.apply(this, arguments);
+  };
+}();

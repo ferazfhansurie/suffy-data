@@ -1,56 +1,113 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 exports.GET = void 0;
-const medusa_1 = require("@medusajs/medusa");
-const GET = async (req, res) => {
-    var _a;
-    try {
-        const manager = req.scope.resolve("manager");
-        const customerRepository = manager.getRepository(medusa_1.Customer);
-        // Fetch all customers
-        const allCustomers = await customerRepository.find({
-            relations: ["billing_address"],
-        });
-        console.log(allCustomers);
-        // Map to hold referralCode and count of how many times it's been referred
-        const referralCounts = new Map();
-        // Initialize counts for each referral code
-        allCustomers.forEach(customer => {
-            var _a;
-            const referralCode = (_a = customer.metadata) === null || _a === void 0 ? void 0 : _a.referral_code;
+var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
+var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/asyncToGenerator"));
+var _medusa = require("@medusajs/medusa");
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+var GET = exports.GET = /*#__PURE__*/function () {
+  var _ref = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee(req, res) {
+    var manager, customerRepository, allCustomers, referralCounts, _iterator, _step, _customer$metadata3, customer, referralCode, recruitCount, updatedCustomers, sortedCustomers, topCustomers;
+    return _regenerator["default"].wrap(function _callee$(_context) {
+      while (1) switch (_context.prev = _context.next) {
+        case 0:
+          _context.prev = 0;
+          manager = req.scope.resolve("manager");
+          customerRepository = manager.getRepository(_medusa.Customer); // Fetch all customers
+          _context.next = 5;
+          return customerRepository.find({
+            relations: ["billing_address"]
+          });
+        case 5:
+          allCustomers = _context.sent;
+          console.log(allCustomers);
+
+          // Map to hold referralCode and count of how many times it's been referred
+          referralCounts = new Map(); // Initialize counts for each referral code
+          allCustomers.forEach(function (customer) {
+            var _customer$metadata;
+            var referralCode = (_customer$metadata = customer.metadata) === null || _customer$metadata === void 0 ? void 0 : _customer$metadata.referral_code;
             if (referralCode) {
-                referralCounts.set(referralCode, 0);
+              referralCounts.set(referralCode, 0);
             }
-        });
-        // Count referrals
-        allCustomers.forEach(customer => {
-            var _a;
-            const referrerCode = (_a = customer.metadata) === null || _a === void 0 ? void 0 : _a.referrer;
+          });
+
+          // Count referrals
+          allCustomers.forEach(function (customer) {
+            var _customer$metadata2;
+            var referrerCode = (_customer$metadata2 = customer.metadata) === null || _customer$metadata2 === void 0 ? void 0 : _customer$metadata2.referrer;
             if (referrerCode && referralCounts.has(referrerCode)) {
-                referralCounts.set(referrerCode, referralCounts.get(referrerCode) + 1);
+              referralCounts.set(referrerCode, referralCounts.get(referrerCode) + 1);
             }
-        });
-        // Update 'recruits' attribute for each customer
-        for (const customer of allCustomers) {
-            const referralCode = (_a = customer.metadata) === null || _a === void 0 ? void 0 : _a.referral_code;
-            if (referralCode) {
-                const recruitCount = referralCounts.get(referralCode) || 0;
-                customer.recruits = recruitCount;
-                await customerRepository.save(customer);
-            }
-        }
-        // Optionally, refetch updated customers if needed
-        const updatedCustomers = await customerRepository.find({ relations: ["billing_address"], });
-        const sortedCustomers = updatedCustomers.sort((a, b) => {
+          });
+
+          // Update 'recruits' attribute for each customer
+          _iterator = _createForOfIteratorHelper(allCustomers);
+          _context.prev = 11;
+          _iterator.s();
+        case 13:
+          if ((_step = _iterator.n()).done) {
+            _context.next = 23;
+            break;
+          }
+          customer = _step.value;
+          referralCode = (_customer$metadata3 = customer.metadata) === null || _customer$metadata3 === void 0 ? void 0 : _customer$metadata3.referral_code;
+          if (!referralCode) {
+            _context.next = 21;
+            break;
+          }
+          recruitCount = referralCounts.get(referralCode) || 0;
+          customer.recruits = recruitCount;
+          _context.next = 21;
+          return customerRepository.save(customer);
+        case 21:
+          _context.next = 13;
+          break;
+        case 23:
+          _context.next = 28;
+          break;
+        case 25:
+          _context.prev = 25;
+          _context.t0 = _context["catch"](11);
+          _iterator.e(_context.t0);
+        case 28:
+          _context.prev = 28;
+          _iterator.f();
+          return _context.finish(28);
+        case 31:
+          _context.next = 33;
+          return customerRepository.find({
+            relations: ["billing_address"]
+          });
+        case 33:
+          updatedCustomers = _context.sent;
+          sortedCustomers = updatedCustomers.sort(function (a, b) {
             return b.recruits - a.recruits; // For descending order
-        });
-        const topCustomers = sortedCustomers.slice(0, 10);
-        console.log(topCustomers);
-        res.status(200).json(topCustomers);
-    }
-    catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-};
-exports.GET = GET;
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicm91dGUuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi8uLi8uLi9zcmMvYXBpL3N0b3JlL3RvcDEwLXJlY3J1aXRlcnMvcm91dGUudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7O0FBRUEsNkNBQTRDO0FBRXJDLE1BQU0sR0FBRyxHQUFHLEtBQUssRUFBRSxHQUFrQixFQUFFLEdBQW1CLEVBQUUsRUFBRTs7SUFDbkUsSUFBSTtRQUNGLE1BQU0sT0FBTyxHQUFrQixHQUFHLENBQUMsS0FBSyxDQUFDLE9BQU8sQ0FBQyxTQUFTLENBQUMsQ0FBQztRQUM1RCxNQUFNLGtCQUFrQixHQUFHLE9BQU8sQ0FBQyxhQUFhLENBQUMsaUJBQVEsQ0FBQyxDQUFDO1FBRTNELHNCQUFzQjtRQUN0QixNQUFNLFlBQVksR0FBRyxNQUFNLGtCQUFrQixDQUFDLElBQUksQ0FBQztZQUNqRCxTQUFTLEVBQUUsQ0FBQyxpQkFBaUIsQ0FBQztTQUMvQixDQUFDLENBQUM7UUFFSCxPQUFPLENBQUMsR0FBRyxDQUFDLFlBQVksQ0FBQyxDQUFBO1FBRXpCLDBFQUEwRTtRQUMxRSxNQUFNLGNBQWMsR0FBRyxJQUFJLEdBQUcsRUFBRSxDQUFDO1FBRWpDLDJDQUEyQztRQUMzQyxZQUFZLENBQUMsT0FBTyxDQUFDLFFBQVEsQ0FBQyxFQUFFOztZQUM5QixNQUFNLFlBQVksR0FBRyxNQUFBLFFBQVEsQ0FBQyxRQUFRLDBDQUFFLGFBQWEsQ0FBQztZQUN0RCxJQUFJLFlBQVksRUFBRTtnQkFDaEIsY0FBYyxDQUFDLEdBQUcsQ0FBQyxZQUFZLEVBQUUsQ0FBQyxDQUFDLENBQUM7YUFDckM7UUFDSCxDQUFDLENBQUMsQ0FBQztRQUVILGtCQUFrQjtRQUNsQixZQUFZLENBQUMsT0FBTyxDQUFDLFFBQVEsQ0FBQyxFQUFFOztZQUM5QixNQUFNLFlBQVksR0FBRyxNQUFBLFFBQVEsQ0FBQyxRQUFRLDBDQUFFLFFBQVEsQ0FBQztZQUNqRCxJQUFJLFlBQVksSUFBSSxjQUFjLENBQUMsR0FBRyxDQUFDLFlBQVksQ0FBQyxFQUFFO2dCQUNwRCxjQUFjLENBQUMsR0FBRyxDQUFDLFlBQVksRUFBRSxjQUFjLENBQUMsR0FBRyxDQUFDLFlBQVksQ0FBQyxHQUFHLENBQUMsQ0FBQyxDQUFDO2FBQ3hFO1FBQ0gsQ0FBQyxDQUFDLENBQUM7UUFFSCxnREFBZ0Q7UUFDaEQsS0FBSyxNQUFNLFFBQVEsSUFBSSxZQUFZLEVBQUU7WUFDbkMsTUFBTSxZQUFZLEdBQUcsTUFBQSxRQUFRLENBQUMsUUFBUSwwQ0FBRSxhQUFhLENBQUM7WUFDdEQsSUFBSSxZQUFZLEVBQUU7Z0JBQ2hCLE1BQU0sWUFBWSxHQUFHLGNBQWMsQ0FBQyxHQUFHLENBQUMsWUFBWSxDQUFDLElBQUksQ0FBQyxDQUFDO2dCQUMzRCxRQUFRLENBQUMsUUFBUSxHQUFHLFlBQVksQ0FBQTtnQkFDaEMsTUFBTSxrQkFBa0IsQ0FBQyxJQUFJLENBQUMsUUFBUSxDQUFDLENBQUM7YUFDekM7U0FDRjtRQUVELGtEQUFrRDtRQUNsRCxNQUFNLGdCQUFnQixHQUFHLE1BQU0sa0JBQWtCLENBQUMsSUFBSSxDQUNwRCxFQUFDLFNBQVMsRUFBRSxDQUFDLGlCQUFpQixDQUFDLEdBQUUsQ0FDbEMsQ0FBQztRQUNGLE1BQU0sZUFBZSxHQUFHLGdCQUFnQixDQUFDLElBQUksQ0FBQyxDQUFDLENBQUMsRUFBRSxDQUFDLEVBQUUsRUFBRTtZQUNyRCxPQUFPLENBQUMsQ0FBQyxRQUFRLEdBQUcsQ0FBQyxDQUFDLFFBQVEsQ0FBQyxDQUFDLHVCQUF1QjtRQUN6RCxDQUFDLENBQUMsQ0FBQztRQUNILE1BQU0sWUFBWSxHQUFHLGVBQWUsQ0FBQyxLQUFLLENBQUMsQ0FBQyxFQUFFLEVBQUUsQ0FBQyxDQUFDO1FBQ2xELE9BQU8sQ0FBQyxHQUFHLENBQUMsWUFBWSxDQUFDLENBQUE7UUFFekIsR0FBRyxDQUFDLE1BQU0sQ0FBQyxHQUFHLENBQUMsQ0FBQyxJQUFJLENBQUMsWUFBWSxDQUFDLENBQUM7S0FDcEM7SUFBQyxPQUFPLEtBQUssRUFBRTtRQUNkLEdBQUcsQ0FBQyxNQUFNLENBQUMsR0FBRyxDQUFDLENBQUMsSUFBSSxDQUFDLEVBQUUsS0FBSyxFQUFFLEtBQUssQ0FBQyxPQUFPLEVBQUUsQ0FBQyxDQUFDO0tBQ2hEO0FBQ0gsQ0FBQyxDQUFDO0FBdkRXLFFBQUEsR0FBRyxPQXVEZCJ9
+          });
+          topCustomers = sortedCustomers.slice(0, 10);
+          console.log(topCustomers);
+          res.status(200).json(topCustomers);
+          _context.next = 43;
+          break;
+        case 40:
+          _context.prev = 40;
+          _context.t1 = _context["catch"](0);
+          res.status(500).json({
+            error: _context.t1.message
+          });
+        case 43:
+        case "end":
+          return _context.stop();
+      }
+    }, _callee, null, [[0, 40], [11, 25, 28, 31]]);
+  }));
+  return function GET(_x, _x2) {
+    return _ref.apply(this, arguments);
+  };
+}();
